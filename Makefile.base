@@ -1,0 +1,32 @@
+NAME=c_plus_plus_serializer
+OBJDIR=.o
+
+TARGET_OBJECTS=					\
+    $(OBJDIR)/main.o 				\
+
+#    $(OBJDIR)/c_plus_plus_serializer.o 		\
+
+$(OBJDIR)/%.o: %.cpp
+	@echo $(CC) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
+
+#
+# link
+#
+TARGET=$(NAME)$(EXE)
+$(TARGET): $(TARGET_OBJECTS)
+	$(CC) $(TARGET_OBJECTS) $(LDLIBS) -o $(TARGET)
+
+#
+# To force clean and avoid "up to date" warning.
+#
+.PHONY: clean
+.PHONY: clobber
+
+clean:
+	rm -rf $(TARGET) $(OBJDIR)/*.o
+
+clobber: clean
+	mkdir -p $(OBJDIR)
+
+all: $(TARGET) 
