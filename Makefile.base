@@ -4,18 +4,18 @@ OBJDIR=.o
 TARGET_OBJECTS=					\
     $(OBJDIR)/main.o 				\
 
-#    $(OBJDIR)/c_plus_plus_serializer.o 		\
+EXTRA_CFLAGS=-std=c++2a
 
 $(OBJDIR)/%.o: %.cpp
-	@echo $(CC) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
-	@$(CC) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
+	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
+	@$(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
 
 #
 # link
 #
 TARGET=$(NAME)$(EXE)
 $(TARGET): $(TARGET_OBJECTS)
-	$(CC) $(TARGET_OBJECTS) $(LDLIBS) -o $(TARGET)
+	$(CXX) $(TARGET_OBJECTS) $(LDLIBS) -o $(TARGET)
 
 #
 # To force clean and avoid "up to date" warning.
@@ -30,3 +30,5 @@ clobber: clean
 	mkdir -p $(OBJDIR)
 
 all: $(TARGET) 
+
+.o/main.o: c_plus_plus_serializer.h
