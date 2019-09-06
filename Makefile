@@ -1,8 +1,8 @@
 COMPILER_FLAGS=-Werror -g -ggdb3 -O2  # AUTOGEN
     
-CLANG_COMPILER_WARNINGS=-Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion # AUTOGEN
-GCC_COMPILER_WARNINGS=-Wall -fmessage-length=0 -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value # AUTOGEN
-GXX_COMPILER_WARNINGS=-Wall -fmessage-length=0 -Wno-trigraphs -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value # AUTOGEN
+CLANG_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
+GCC_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
+GXX_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
 COMPILER_WARNINGS=$(GCC_COMPILER_WARNINGS) # AUTOGEN
 COMPILER_WARNINGS=$(GXX_COMPILER_WARNINGS) # AUTOGEN
 COMPILER_WARNINGS=$(CLANG_COMPILER_WARNINGS) # AUTOGEN
@@ -20,7 +20,7 @@ OBJDIR=.o
 TARGET_OBJECTS=					\
     $(OBJDIR)/main.o 				\
 
-EXTRA_CFLAGS=-std=c++2a
+EXTRA_CFLAGS=-std=c++11
 
 $(OBJDIR)/%.o: %.cpp
 	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<

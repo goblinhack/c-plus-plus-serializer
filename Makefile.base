@@ -4,7 +4,7 @@ OBJDIR=.o
 TARGET_OBJECTS=					\
     $(OBJDIR)/main.o 				\
 
-EXTRA_CFLAGS=-std=c++2a
+EXTRA_CFLAGS=-std=c++11
 
 $(OBJDIR)/%.o: %.cpp
 	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<

@@ -1,11 +1,11 @@
 Simple c++ serializer
 =====================
 
-A very minimal C++14 header only serializer. No sanity checking is performed
+A very minimal C++11 header only serializer. No sanity checking is performed
 on the data when it is read back in, so make sure your serializer and 
 deserializers match perfectly. Example usege:
 
-saving:
+To serialize:
 
 <pre>
 #include "c_plus_plus_serializer.h"
@@ -21,9 +21,11 @@ static void save (std::ofstream f)
 }
 </pre>
 
-loading:
+To deserialize:
 
 <pre>
+#include "c_plus_plus_serializer.h"
+
 static void save (std::ifstream f)
 {
     int a, b, c;
