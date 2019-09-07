@@ -228,7 +228,7 @@ Or, if that fails, manual build:
 
 <pre>
 c++ -std=c++11 -Werror -O2 -Wall -c -o .o/main.o main.cpp
-c++ .o/main.o   -o c_plus_plus_serializer
+c++ .o/main.o -o c_plus_plus_serializer
 </pre>
 
 To test:
