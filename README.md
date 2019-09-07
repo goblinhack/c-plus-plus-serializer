@@ -27,8 +27,6 @@ static void save (std::ofstream f)
 To deserialize:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 static void load (std::ifstream f)
 {
     int a, b, c;
@@ -42,8 +40,6 @@ static void load (std::ifstream f)
 Saving a map:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 static void save_map (std::ofstream f)
 {
     std::map< std::string, std::string > m;
@@ -58,8 +54,6 @@ static void save_map (std::ofstream f)
 Loading a map:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 static void load_map (std::ifstream f)
 {
     std::map< std::string, std::string > m;
@@ -70,8 +64,6 @@ static void load_map (std::ifstream f)
 Saving and loading a slightly more complex map:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 static void save_map (std::ofstream f)
 {
     std::map< std::string, std::list<std::string> > m;
@@ -98,8 +90,6 @@ static void load_map (std::ifstream f)
 Custom classes are easy to add also:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 class Custom {
 public:
     int a;
@@ -122,11 +112,9 @@ public:
 };
 </pre>
 
-And a more complex example. A map of custom classes
+And a more complex example. A map of custom classes:
 
 <pre>
-#include "c_plus_plus_serializer.h"
-
 class Custom {
 public:
     int a;
