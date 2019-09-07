@@ -33,6 +33,7 @@ static void load_map_key_string_value_string (const std::string filename)
         std::cout << "    [" << i.first << "] = " << i.second << std::endl;
     }
     std::cout << "}" << std::endl;
+    std::cout << std::endl;
 }
 
 void map_example (void)
@@ -41,5 +42,4 @@ void map_example (void)
     std::cout << "============================" << std::endl;
     save_map_key_string_value_string(std::string("map_of_strings.bin"));
     load_map_key_string_value_string(std::string("map_of_strings.bin"));
-    std::cout << std::endl;
 }

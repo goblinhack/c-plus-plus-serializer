@@ -4,6 +4,9 @@ int main (int argc, char *argv[])
     extern void basic_example(void);
     basic_example();
 
+    extern void container_example(void);
+    container_example();
+
     extern void map_example(void);
     map_example();
 

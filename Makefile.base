@@ -4,6 +4,7 @@ OBJDIR=.o
 TARGET_OBJECTS=					      \
     $(OBJDIR)/main.o 				      \
     $(OBJDIR)/basic_example.o 			      \
+    $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
     $(OBJDIR)/custom_class_example.o 		      \

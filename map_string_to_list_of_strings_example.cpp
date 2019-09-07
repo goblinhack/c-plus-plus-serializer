@@ -40,6 +40,7 @@ static void load_map_key_string_value_list_of_strings (const std::string filenam
         std::cout << "]" << std::endl;
     }
     std::cout << "}" << std::endl;
+    std::cout << std::endl;
 }
 
 void map_string_to_list_of_strings_example (void)
@@ -48,5 +49,4 @@ void map_string_to_list_of_strings_example (void)
     std::cout << "=====================================" << std::endl;
     save_map_key_string_value_list_of_strings(std::string("map_of_string_to_list_of_strings.bin"));
     load_map_key_string_value_list_of_strings(std::string("map_of_string_to_list_of_strings.bin"));
-    std::cout << std::endl;
 }

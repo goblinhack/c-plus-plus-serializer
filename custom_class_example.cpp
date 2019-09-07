@@ -80,8 +80,8 @@ static void load_custom_class_example (void)
 
     load(std::string("custom_class.bin"), c);
     std::cout << std::endl;
-
     std::cout << c;
+    std::cout << std::endl;
 }
 
 void custom_class_example (void)
@@ -90,5 +90,4 @@ void custom_class_example (void)
     std::cout << "====================" << std::endl;
     save_custom_class_example();
     load_custom_class_example();
-    std::cout << std::endl;
 }
