@@ -213,9 +213,8 @@ save to map_of_custom_class.bin
 read from map_of_custom_class.bin
 
 m = 2 list-elems {
-        [key1] = a:1 b:hello c:[2 elems]:vec-elem1 vec-elem2
-                            [key2] = a:2 b:there c:[2 elems]:vec-elem3 
-                                            vec-elem4
+    [key1] = a:1 b:hello c:[2 elems]:vec-elem1 vec-elem2
+    [key2] = a:2 b:there c:[2 elems]:vec-elem3 vec-elem4
 }
 </pre>
 
