@@ -3,14 +3,24 @@
 #include <map>
 #include "c_plus_plus_serializer.h"
 
-class Custom {
+class MappedClass {
 public:
     int a;
     std::string b;
     std::vector<std::string> c;
 
     friend std::ostream& operator<<(std::ostream &out, 
-                                    Bits<class Custom & > my)
+                                    Bits<class MappedClass & > const my)
+    {
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write custom class" << std::endl;
+#endif
+        out << bits(my.t.a) << bits(my.t.b) << bits(my.t.c);
+        return (out);
+    }
+
+    friend std::ostream& operator<<(std::ostream &out, 
+                                    Bits<const class MappedClass & > const my)
     {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "write custom class" << std::endl;
@@ -20,7 +30,7 @@ public:
     }
 
     friend std::istream& operator>>(std::istream &in, 
-                                    Bits<class Custom &> my)
+                                    Bits<class MappedClass &> my)
     {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "read custom class" << std::endl;
@@ -30,7 +40,7 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream &out, 
-                                    class Custom &my)
+                                    class MappedClass &my)
     {
         out << "a:" << my.a << " b:" << my.b;
 
@@ -49,16 +59,16 @@ static void save_map_key_string_value_custom (const std::string filename)
     std::cout << "save to " << filename << std::endl;
     std::ofstream out(filename, std::ios::binary );
 
-    std::map< std::string, class Custom > m;
+    std::map< std::string, class MappedClass > m;
 
-    auto c1 = Custom();
+    auto c1 = MappedClass();
     c1.a = 1;
     c1.b = "hello";
     std::initializer_list<std::string> L1 = {"vec-elem1", "vec-elem2"};
     std::vector<std::string> l1(L1);
     c1.c = l1;
 
-    auto c2 = Custom();
+    auto c2 = MappedClass();
     c2.a = 2;
     c2.b = "there";
     std::initializer_list<std::string> L2 = {"vec-elem3", "vec-elem4"};
@@ -76,7 +86,7 @@ static void load_map_key_string_value_custom (const std::string filename)
     std::cout << "read from " << filename << std::endl;
     std::ifstream in(filename);
 
-    std::map< std::string, class Custom > m;
+    std::map< std::string, class MappedClass > m;
 
     in >> bits(m);
     std::cout << std::endl;

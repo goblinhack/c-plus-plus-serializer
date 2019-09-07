@@ -23,6 +23,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/map_example.o 			      \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
     $(OBJDIR)/custom_class_example.o 		      \
+    $(OBJDIR)/bitfields_in_class_example.o            \
     $(OBJDIR)/map_custom_class_example.o 	      \
 
 EXTRA_CFLAGS=-std=c++11

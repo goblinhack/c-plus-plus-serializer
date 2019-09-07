@@ -2,6 +2,8 @@
 #define C_PLUS_PLUS_SERIALIZER
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <map>
 
 template<typename TYPE> struct Bits { TYPE t; };
 
@@ -142,6 +144,19 @@ static inline std::ostream& operator<<(std::ostream &out,
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write map<K,V> " << m.t.size() << " elems" << std::endl;
+#endif
+    size_t sz = m.t.size();
+    out << bits(sz);
+    for (auto i : m.t) { out << bits(i.first) << bits(i.second); }
+    return (out);
+}
+
+template <class K, class V>
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<std::map<K,const V> &> const m)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write map<K,const V> " << m.t.size() << " elems" << std::endl;
 #endif
     size_t sz = m.t.size();
     out << bits(sz);

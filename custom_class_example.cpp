@@ -10,7 +10,7 @@ public:
     std::vector<std::string> c;
 
     friend std::ostream& operator<<(std::ostream &out, 
-                                    Bits<class Custom & > my)
+                                    Bits<const class Custom & > const my)
     {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "write custom class" << std::endl;
@@ -44,7 +44,7 @@ public:
     }
 };
 
-static void save (const std::string filename, class Custom &c)
+static void save (const std::string filename, const class Custom &c)
 {
     std::cout << "save to " << filename << std::endl;
     std::ofstream out(filename, std::ios::binary );
@@ -81,7 +81,7 @@ static void load_custom_class_example (void)
     load(std::string("custom_class.bin"), c);
     std::cout << std::endl;
 
-    std::cout << c << std::endl;
+    std::cout << c;
 }
 
 void custom_class_example (void)

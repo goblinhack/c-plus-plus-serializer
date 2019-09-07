@@ -218,6 +218,55 @@ And corresponding output from the above:
     }
 </pre>
 
+Here is an example of using bitfields:
+
+<pre>
+    class BitsetClass {
+    public:
+        std::bitset<1> a;
+        std::bitset<2> b;
+        std::bitset<3> c;
+
+        unsigned int d:1; // need c++20 for default initializers for bitfields
+        unsigned int e:2;
+        unsigned int f:3;
+        BitsetClass(void) { d = 0; e = 0; f = 0; }
+
+        friend std::ostream& operator<<(std::ostream &out, 
+                                        Bits<const class BitsetClass & > const my)
+        {
+            out << bits(my.t.a);
+            out << bits(my.t.b);
+            out << bits(my.t.c);
+
+            std::bitset<6> s(my.t.d | my.t.e << 1 | my.t.f << 3);
+            out << bits(s);
+
+            return (out);
+        }
+
+        friend std::istream& operator>>(std::istream &in, 
+                                        Bits<class BitsetClass &> my)
+        {
+            std::bitset<1> a;
+            in >> bits(a);
+            my.t.a = a;
+
+            in >> bits(my.t.b);
+            in >> bits(my.t.c);
+            std::bitset<6> s;
+            in >> bits(s);
+
+            unsigned long raw_bits = static_cast<unsigned long>(s.to_ulong());
+            my.t.d = raw_bits & 0b000001;
+            my.t.e = (raw_bits & 0b000110) >> 1;
+            my.t.f = (raw_bits & 0b111000) >> 3;
+
+            return (in);
+        }
+    };
+</pre>
+
 To build:
 
 <pre>

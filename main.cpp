@@ -16,5 +16,8 @@ int main (int argc, char *argv[])
     extern void map_custom_class_example(void);
     map_custom_class_example();
 
+    extern void custom_bitset_class_example();
+    custom_bitset_class_example();
+
     return (0);
 }
