@@ -222,7 +222,7 @@ To build:
 
 <pre>
 sh ./RUNME
-c++ -std=c++2a -Werror -g -ggdb3 -O2 -Wall -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-sign-conversion -c -o .o/main.o main.cpp
+c++ -std=c++2a -Werror -O2 -Wall -c -o .o/main.o main.cpp
 c++ .o/main.o   -o c_plus_plus_serializer
 </pre>
 
