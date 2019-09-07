@@ -13,5 +13,8 @@ int main (int argc, char *argv[])
     extern void custom_class_example(void);
     custom_class_example();
 
+    extern void map_custom_class_example(void);
+    map_custom_class_example();
+
     return (0);
 }
