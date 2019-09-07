@@ -3,8 +3,13 @@ OBJDIR=.o
 
 TARGET_OBJECTS=					\
     $(OBJDIR)/main.o 				\
+    $(OBJDIR)/basic_example.o 			\
+    $(OBJDIR)/map_example.o 			\
+    $(OBJDIR)/map2_example.o 			\
+    $(OBJDIR)/custom_class_example.o 		\
 
 EXTRA_CFLAGS=-std=c++11
+#EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER
 
 $(OBJDIR)/%.o: %.cpp
 	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<

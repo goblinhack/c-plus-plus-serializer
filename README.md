@@ -5,6 +5,9 @@ A very minimal C++11 header only serializer. No sanity checking is performed
 on the data when it is read back in, so make sure your serializer and 
 deserializers match perfectly. Example usege:
 
+The data is saved in raw binary format, hence this is only loadable on the
+same architecture that it is saved in.
+
 To serialize:
 
 <pre>
@@ -69,11 +72,8 @@ Saving and loading a slightly more complex map:
 <pre>
 #include "c_plus_plus_serializer.h"
 
-static void save_map_key_string_value_list_of_strings (const std::string filename)
+static void save_map (std::ofstream f)
 {
-    std::cout << "save to " << filename << std::endl;
-    std::ofstream out(filename, std::ios::binary );
-
     std::map< std::string, std::list<std::string> > m;
 
     std::initializer_list<std::string> L1 = {"list-elem1", "list-elem2"};
@@ -87,25 +87,38 @@ static void save_map_key_string_value_list_of_strings (const std::string filenam
     out << bits(m);
 }
 
-static void load_map_key_string_value_list_of_strings (const std::string filename)
+static void load_map (std::ifstream f)
 {
-    std::cout << "read from " << filename << std::endl;
-    std::ifstream in(filename);
-
     std::map< std::string, std::list<std::string> > m;
 
     in >> bits(m);
-
-    std::cout << "m = " << m.size() << " list-elems { " << std::endl;
-    for (auto i : m) {
-        std::cout << "    [" << i.first << "] = [ ";
-        for (auto j : i.second) {
-            std::cout << j << ", ";
-        }
-        std::cout << "]" << std::endl;
-    }
-    std::cout << "}" << std::endl;
 }
+</pre>
+
+Custom classes are easy to add also:
+
+<pre>
+#include "c_plus_plus_serializer.h"
+class Custom {
+public:
+    int a;
+    std::string b;
+    std::vector<std::string> c;
+
+    friend std::ostream& operator<<(std::ostream &out, 
+                                    Bits<class Custom & > my)
+    {
+        out << bits(my.t.a) << bits(my.t.b) << bits(my.t.c);
+        return (out);
+    }
+
+    friend std::istream& operator>>(std::istream &in, 
+                                    Bits<class Custom &> my)
+    {
+        in >> bits(my.t.a) >> bits(my.t.b) >> bits(my.t.c);
+        return (in);
+    }
+};
 </pre>
 
 To build:
@@ -120,12 +133,6 @@ To test:
 
 <pre>
 ./c_plus_plus_serializer
-a 5
-b -1
-c 123456
-d hello
-e 2 vec-elems: [vec-elem1] [vec-elem2]
-f 2 list-elems: [list-elem1] [list-elem2]
 </pre>
 
 Recompile with DEBUG_C_PLUS_PLUS_SERIALIZER to debug.
