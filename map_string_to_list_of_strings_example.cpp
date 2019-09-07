@@ -42,7 +42,7 @@ static void load_map_key_string_value_list_of_strings (const std::string filenam
     std::cout << "}" << std::endl;
 }
 
-void map2_example (void)
+void map_string_to_list_of_strings_example (void)
 {
     std::cout << "map key string, value list of strings" << std::endl;
     std::cout << "=====================================" << std::endl;
