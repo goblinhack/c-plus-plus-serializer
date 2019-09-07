@@ -5,6 +5,15 @@
 #include <vector>
 #include <map>
 
+//
+// 64 bits for serializing is a bit overkill for serializing, so use int
+//
+#ifdef USE_SIZE_T
+typedef size_t my_size_t;
+#else
+typedef int my_size_t;
+#endif
+
 template<typename TYPE> struct Bits { TYPE t; };
 
 template<typename TYPE>
@@ -47,7 +56,7 @@ static inline std::ostream& operator<<(std::ostream &s, Bits<TYPE&> const b)
 ////////////////////////////////////////////////////////////////////////////
 static inline std::istream& operator>>(std::istream& in, Bits<std::string &> v)
 {
-    size_t sz = 0;
+    my_size_t sz = 0;
     in >> bits(sz);
     if (in && sz) {
         std::vector<char> tmp(sz);
@@ -67,7 +76,7 @@ static inline std::ostream& operator<<(std::ostream &out,
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write const '" << v.t << "'" << std::endl;
 #endif
-    size_t sz = v.t.size();
+    my_size_t sz = v.t.size();
     return out << bits(sz) << v.t;
 }
 
@@ -77,7 +86,7 @@ std::ostream& operator<<(std::ostream &out, Bits<std::string &> const v)
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write '" << v.t << "'" << std::endl;
 #endif
-    size_t sz = v.t.size();
+    my_size_t sz = v.t.size();
     return out << bits(sz) << v.t;
 }
 
@@ -93,7 +102,7 @@ static inline std::ostream& operator<<(std::ostream &out,
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write container<string> " << v.t.size() << " elems" << std::endl;
 #endif
-    size_t sz = v.t.size();
+    my_size_t sz = v.t.size();
     out << bits(sz);
     for (auto i : v.t) { out << bits(i); }
     return (out);
@@ -108,7 +117,7 @@ static inline std::ostream& operator<<(std::ostream &out,
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write container<const T> " << v.t.size() << " elems" << std::endl;
 #endif
-    size_t sz = v.t.size();
+    my_size_t sz = v.t.size();
     out << bits(sz);
     for (auto i : v.t) { out << bits(i); }
     return (out);
@@ -119,7 +128,7 @@ template <
   template <typename ELEM, typename ALLOC = std::allocator<ELEM> > class C>
 static inline std::istream& operator>>(std::istream &in, Bits<C<T> &> v)
 {
-    size_t sz = 0;
+    my_size_t sz = 0;
     in >> bits(sz);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read container<T> " << sz << " elems" << std::endl;
@@ -145,7 +154,7 @@ static inline std::ostream& operator<<(std::ostream &out,
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write map<K,V> " << m.t.size() << " elems" << std::endl;
 #endif
-    size_t sz = m.t.size();
+    my_size_t sz = m.t.size();
     out << bits(sz);
     for (auto i : m.t) { out << bits(i.first) << bits(i.second); }
     return (out);
@@ -158,7 +167,7 @@ static inline std::ostream& operator<<(std::ostream &out,
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write map<K,const V> " << m.t.size() << " elems" << std::endl;
 #endif
-    size_t sz = m.t.size();
+    my_size_t sz = m.t.size();
     out << bits(sz);
     for (auto i : m.t) { out << bits(i.first) << bits(i.second); }
     return (out);
@@ -168,7 +177,7 @@ template <class K, class V>
 static inline std::istream& operator>>(std::istream &in, 
                                        Bits<std::map<K,V> &> m)
 {
-    size_t sz = 0;
+    my_size_t sz = 0;
     in >> bits(sz);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read map<K,V> " << sz << " elems" << std::endl;
