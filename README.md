@@ -8,39 +8,69 @@ deserializers match perfectly.
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it is saved in.
 
-To serialize:
+To serialize basic types is fairly easy:
 
 <pre>
     #include "c_plus_plus_serializer.h"
 
-    static void save (std::ofstream f)
+    static void save (std::ofstream out)
     {
-        int a = 5, b = -1, c = 123456;
-        std::string d("hello");
-        std::initializer_list<std::string> data = {"there", "you"};
-        std::vector<std::string> e(data);
+	char a = 42;
+	unsigned short b = 65535;
+	int c = 123456;
+	float d = std::numeric_limits<float>::max();
+	double e = std::numeric_limits<double>::max();
 
-        f << bits(a) << bits(b) << bits(c) << bits(d) << bits(e);
+	std::string f("hello");
+
+	std::initializer_list<std::string> d1 = {"vec-elem1", "vec-elem2"};
+	std::vector<std::string> g(d1);
+
+	std::initializer_list<std::string> d2 = {"list-elem1", "list-elem2"};
+	std::list<std::string> h(d2);
+
+	std::array<std::string, 2> i = {"arr-elem1", "arr-elem2"};
+
+	std::array<std::array<char, 2>, 3> j;
+	j[0][0] = '0';
+	j[0][1] = '1';
+	j[1][0] = '2';
+	j[1][1] = '3';
+	j[2][0] = '4';
+	j[2][1] = '5';
+
+	out << bits(a) << bits(b) << bits(c) << bits(d);
+	out << bits(e) << bits(f) << bits(g) << bits(h);
+	out << bits(i) << bits(j);
     }
 </pre>
 
 To deserialize:
 
 <pre>
-    static void load (std::ifstream f)
+    static void load (std::ifstream in)
     {
-        int a, b, c;
-        std::string d;
-        std::vector<std::string> e;
+	char a;
+	unsigned short b;
+	int c;
+	float d;
+	double e;
+	std::string f;
+	std::vector<std::string> g;
+	std::list<std::string> h;
+	std::array<std::string, 2> i;
+	std::array<std::array<char, 2>, 3> j;
 
-        f >> bits(a) >> bits(b) >> bits(c) >> bits(d) >> bits(e);
+	in >> bits(a) >> bits(b) >> bits(c) >> bits(d);
+	in >> bits(e) >> bits(f) >> bits(g) >> bits(h);
+	in >> bits(i) >> bits(j);
     }
 </pre>
 
-Saving a map:
+Saving a map is also easy:
 
 <pre>
-    static void save_map (std::ofstream f)
+    static void save_map (std::ofstream out)
     {
         std::map< std::string, std::string > m;
         m.insert(std::make_pair(std::string("key1"), std::string("value1")));
@@ -54,17 +84,17 @@ Saving a map:
 Loading a map:
 
 <pre>
-    static void load_map (std::ifstream f)
+    static void load_map (std::ifstream in)
     {
         std::map< std::string, std::string > m;
         in >> bits(m);
     }
 </pre>
 
-Saving and loading a slightly more complex map:
+Saving and loading a map of lists:
 
 <pre>
-    static void save_map (std::ofstream f)
+    static void save_map (std::ofstream out)
     {
         std::map< std::string, std::list<std::string> > m;
 
@@ -79,7 +109,7 @@ Saving and loading a slightly more complex map:
         out << bits(m);
     }
 
-    static void load_map (std::ifstream f)
+    static void load_map (std::ifstream in)
     {
         std::map< std::string, std::list<std::string> > m;
 
@@ -87,7 +117,7 @@ Saving and loading a slightly more complex map:
     }
 </pre>
 
-Custom classes are easy to add also:
+Custom classes are easy to serialize also:
 
 <pre>
     class Custom {
@@ -204,21 +234,7 @@ And a more complex example. A map of custom classes:
     }
 </pre>
 
-And corresponding output from the above:
-
-<pre>
-    map key string, value class
-    ============================
-    save to map_of_custom_class.bin
-    read from map_of_custom_class.bin
-
-    m = 2 list-elems {
-        [key1] = a:1 b:hello c:[2 elems]:vec-elem1 vec-elem2
-        [key2] = a:2 b:there c:[2 elems]:vec-elem3 vec-elem4
-    }
-</pre>
-
-Here is an example of using bitfields:
+Here is an example of using bitfields, C style and C++ style:
 
 <pre>
     class BitsetClass {
