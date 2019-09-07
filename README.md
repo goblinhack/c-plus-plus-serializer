@@ -1,9 +1,9 @@
-Simple c++ serializer
-=====================
+Simple C++ 11 header-only serializer
+====================================
 
 A very minimal C++11 header only serializer. No sanity checking is performed
 on the data when it is read back in, so make sure your serializer and 
-deserializers match perfectly. Example usege:
+deserializers match perfectly.
 
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it is saved in.
