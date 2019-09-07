@@ -2,7 +2,7 @@ Simple C++ 11 header-only serializer
 ====================================
 
 A very minimal C++11 header only serializer. No sanity checking is performed
-on the data when it is read back in, so make sure your serializer and 
+on the data when it is read back in, so make sure your serializer and
 deserializers match perfectly.
 
 The data is saved in raw binary format, hence this is only loadable on the
@@ -134,14 +134,14 @@ Custom class example:
         std::string b;
         std::vector<std::string> c;
 
-        friend std::ostream& operator<<(std::ostream &out, 
+        friend std::ostream& operator<<(std::ostream &out,
                                         Bits<class Custom & > my)
         {
             out << bits(my.t.a) << bits(my.t.b) << bits(my.t.c);
             return (out);
         }
 
-        friend std::istream& operator>>(std::istream &in, 
+        friend std::istream& operator>>(std::istream &in,
                                         Bits<class Custom &> my)
         {
             in >> bits(my.t.a) >> bits(my.t.b) >> bits(my.t.c);
@@ -159,21 +159,21 @@ And a more complex example. A map of custom classes:
         std::string b;
         std::vector<std::string> c;
 
-        friend std::ostream& operator<<(std::ostream &out, 
+        friend std::ostream& operator<<(std::ostream &out,
                                         Bits<class Custom & > my)
         {
             out << bits(my.t.a) << bits(my.t.b) << bits(my.t.c);
             return (out);
         }
 
-        friend std::istream& operator>>(std::istream &in, 
+        friend std::istream& operator>>(std::istream &in,
                                         Bits<class Custom &> my)
         {
             in >> bits(my.t.a) >> bits(my.t.b) >> bits(my.t.c);
             return (in);
         }
 
-        friend std::ostream& operator<<(std::ostream &out, 
+        friend std::ostream& operator<<(std::ostream &out,
                                         class Custom &my)
         {
             out << "a:" << my.a << " b:" << my.b;
@@ -244,7 +244,7 @@ Bitfields example, C style and C++ style:
         unsigned int f:3;
         BitsetClass(void) { d = 0; e = 0; f = 0; }
 
-        friend std::ostream& operator<<(std::ostream &out, 
+        friend std::ostream& operator<<(std::ostream &out,
                                         Bits<const class BitsetClass & > const my)
         {
             out << bits(my.t.a);
@@ -257,7 +257,7 @@ Bitfields example, C style and C++ style:
             return (out);
         }
 
-        friend std::istream& operator>>(std::istream &in, 
+        friend std::istream& operator>>(std::istream &in,
                                         Bits<class BitsetClass &> my)
         {
             std::bitset<1> a;
