@@ -8,7 +8,7 @@ deserializers match perfectly.
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it is saved in.
 
-deserialize serialize basic POD types is fairly easy:
+Serializing basic POD types is fairly easy:
 
 <pre>
     #include "c_plus_plus_serializer.h"
