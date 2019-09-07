@@ -26,13 +26,41 @@ To deserialize:
 <pre>
 #include "c_plus_plus_serializer.h"
 
-static void save (std::ifstream f)
+static void load (std::ifstream f)
 {
     int a, b, c;
     std::string d;
     std::vector<std::string> e;
 
     f >> bits(a) >> bits(b) >> bits(c) >> bits(d) >> bits(e);
+}
+</pre>
+
+Saving a map:
+
+<pre>
+#include "c_plus_plus_serializer.h"
+
+static void save_map (std::ofstream f)
+{
+    std::map< std::string, std::string > m;
+    m.insert(std::make_pair(std::string("key1"), std::string("value1")));
+    m.insert(std::make_pair(std::string("key2"), std::string("value2")));
+    m.insert(std::make_pair(std::string("key3"), std::string("value3")));
+    m.insert(std::make_pair(std::string("key4"), std::string("value4")));
+    out << bits(m);
+}
+</pre>
+
+Loading a map:
+
+<pre>
+#include "c_plus_plus_serializer.h"
+
+static void load_map (std::ifstream f)
+{
+    std::map< std::string, std::string > m;
+    in >> bits(m);
 }
 </pre>
 
