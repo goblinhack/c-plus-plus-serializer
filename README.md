@@ -13,7 +13,7 @@ To serialize basic POD types is fairly easy:
 <pre>
     #include "c_plus_plus_serializer.h"
 
-    static void save (std::ofstream out)
+    static void serialize (std::ofstream out)
     {
 	char a = 42;
 	unsigned short b = 65535;
@@ -49,7 +49,7 @@ For containers:
 <pre>
     #include "c_plus_plus_serializer.h"
 
-    static void save (std::ofstream out)
+    static void serialize (std::ofstream out)
     {
         std::initializer_list<std::string> d1 = {"vec-elem1", "vec-elem2"};
 	std::vector<std::string> a(d1);
@@ -82,7 +82,7 @@ For containers:
 Maps:
 
 <pre>
-    static void save_map (std::ofstream out)
+    static void serialize (std::ofstream out)
     {
         std::map< std::string, std::string > m;
         m.insert(std::make_pair(std::string("key1"), std::string("value1")));
@@ -92,7 +92,7 @@ Maps:
         out << bits(m);
     }
 
-    static void load_map (std::ifstream in)
+    static void deserialize (std::ifstream in)
     {
         std::map< std::string, std::string > m;
         in >> bits(m);
@@ -102,7 +102,7 @@ Maps:
 Map of lists example:
 
 <pre>
-    static void save_map (std::ofstream out)
+    static void serialize (std::ofstream out)
     {
         std::map< std::string, std::list<std::string> > m;
 
@@ -117,7 +117,7 @@ Map of lists example:
         out << bits(m);
     }
 
-    static void load_map (std::ifstream in)
+    static void deserialize (std::ifstream in)
     {
         std::map< std::string, std::list<std::string> > m;
 
@@ -188,11 +188,8 @@ And a more complex example. A map of custom classes:
         }
     };
 
-    static void save_map_key_string_value_custom (const std::string filename)
+    static void serialize (...)
     {
-        std::cout << "save to " << filename << std::endl;
-        std::ofstream out(filename, std::ios::binary );
-
         std::map< std::string, class Custom > m;
 
         auto c1 = Custom();
@@ -215,7 +212,7 @@ And a more complex example. A map of custom classes:
         out << bits(m);
     }
 
-    static void load_map_key_string_value_custom (const std::string filename)
+    static void deserialize (...)
     {
         std::cout << "read from " << filename << std::endl;
         std::ifstream in(filename);
@@ -230,15 +227,6 @@ And a more complex example. A map of custom classes:
             std::cout << "    [" << i.first << "] = " << i.second;
         }
         std::cout << "}" << std::endl;
-    }
-
-    void map_custom_class_example (void)
-    {
-        std::cout << "map key string, value class" << std::endl;
-        std::cout << "============================" << std::endl;
-        save_map_key_string_value_custom(std::string("map_of_custom_class.bin"));
-        load_map_key_string_value_custom(std::string("map_of_custom_class.bin"));
-        std::cout << std::endl;
     }
 </pre>
 
