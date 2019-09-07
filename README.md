@@ -8,7 +8,7 @@ deserializers match perfectly.
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it is saved in.
 
-To serialize basic POD types is fairly easy:
+deserialize serialize basic POD types is fairly easy:
 
 <pre>
     #include "c_plus_plus_serializer.h"
@@ -30,7 +30,7 @@ To serialize basic POD types is fairly easy:
 To deserialize:
 
 <pre>
-    static void load (std::ifstream in)
+    static void deserialize (std::ifstream in)
     {
 	char a;
 	unsigned short b;
@@ -67,7 +67,7 @@ For containers:
 	out << bits(a) << bits(b) << bits(c) << bits(d);
     }
 
-    static void load (std::ifstream in)
+    static void deserialize (std::ifstream in)
     {
         std::string f;
 	std::vector<std::string> a;
