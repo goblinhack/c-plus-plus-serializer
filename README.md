@@ -1,12 +1,12 @@
 Simple C++ 11 header-only serializer
 ====================================
 
-A very minimal C++11 header only serializer. No sanity checking is performed
-on the data when it is read back in, so make sure your serializer and
-deserializers match perfectly.
+A very minimal C++11 header only serializer. All you need to do is include
+"c_plus_plus_serializer.h" in your project for any files that need to do
+serialization.
 
 The data is saved in raw binary format, hence this is only loadable on the
-same architecture that it is saved in.
+same architecture that it was saved in.
 
 Serializing basic POD types is fairly easy:
 
@@ -303,3 +303,6 @@ To debug, uncomment this line in Makefile.base, then recompile:
 <pre>
     #EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER
 </pre>
+
+Note, no sanity checking is performed on the data when it is read back in, so
+make sure your serializer and deserializers match perfectly.
