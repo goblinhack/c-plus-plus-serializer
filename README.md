@@ -319,10 +319,17 @@ To test:
     ./c_plus_plus_serializer
 </pre>
 
-To debug, uncomment this line in Makefile.base, then recompile:
+To debug, uncomment this line in Makefile.base, and then rerun RUNME:
 
 <pre>
     #EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER
+</pre>
+
+To use 64-bit size_t when saving vectors, uncomment in Makefile.base and then
+rerun RUNME:
+
+<pre>
+    #EXTRA_CFLAGS+=-DUSE_SIZE_T
 </pre>
 
 Note, no sanity checking is performed on the data when it is read back in, so
