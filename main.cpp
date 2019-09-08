@@ -7,6 +7,9 @@ int main (int argc, char *argv[])
     extern void container_example(void);
     container_example();
 
+    extern void raw_memory_example(void);
+    raw_memory_example();
+
     extern void map_example(void);
     map_example();
 

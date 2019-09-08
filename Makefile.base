@@ -5,6 +5,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/main.o 				      \
     $(OBJDIR)/hexdump.o 		              \
     $(OBJDIR)/basic_example.o 			      \
+    $(OBJDIR)/raw_memory.o 			      \
     $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
     $(OBJDIR)/unordered_map_example.o 		      \

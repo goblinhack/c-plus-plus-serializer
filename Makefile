@@ -21,6 +21,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/main.o 				      \
     $(OBJDIR)/hexdump.o 		              \
     $(OBJDIR)/basic_example.o 			      \
+    $(OBJDIR)/raw_memory.o 			      \
     $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
     $(OBJDIR)/unordered_map_example.o 		      \
@@ -116,6 +117,7 @@ all: $(TARGET)
 .o/quicklz.o: /usr/include/sys/_types/_ssize_t.h /usr/include/strings.h
 .o/quicklz.o: /usr/include/secure/_strings.h /usr/include/secure/_common.h
 .o/quicklz.o: /usr/include/secure/_string.h
+.o/raw_memory.o: c_plus_plus_serializer.h hexdump.h
 .o/unordered_map_example.o: c_plus_plus_serializer.h
 .o/zipped_container_example.o: c_plus_plus_serializer.h hexdump.h quicklz.h
 .o/zipped_container_example.o: /usr/include/string.h /usr/include/_types.h
