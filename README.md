@@ -23,10 +23,8 @@ Tested types
 7. std::unordered_map
 8. custom class
 
-Examples
-========
-
-Serializing basic POD types is fairly easy:
+POD serialization
+=================
 
 <pre>
     #include "c_plus_plus_serializer.h"
@@ -43,11 +41,7 @@ Serializing basic POD types is fairly easy:
 	out << bits(a) << bits(b) << bits(c) << bits(d);
         out << bits(e) << bits(f);
     }
-</pre>
 
-To deserialize:
-
-<pre>
     static void deserialize (std::ifstream in)
     {
 	char a;
@@ -62,7 +56,8 @@ To deserialize:
     }
 </pre>
 
-For containers:
+Container serialization
+=======================
 
 <pre>
     #include "c_plus_plus_serializer.h"
@@ -118,7 +113,8 @@ For containers:
     }
 </pre>
 
-Maps:
+Map serialization
+=================
 
 <pre>
     static void serialize (std::ofstream out)
@@ -138,7 +134,8 @@ Maps:
     }
 </pre>
 
-Unordered maps:
+Unordered map serialization
+===========================
 
 <pre>
     static void serialize (std::ofstream out)
@@ -158,7 +155,8 @@ Unordered maps:
     }
 </pre>
 
-Map of lists example:
+std::map<std::string, std::list> example
+========================================
 
 <pre>
     static void serialize (std::ofstream out)
@@ -184,7 +182,8 @@ Map of lists example:
     }
 </pre>
 
-Custom class example:
+User defined classes
+====================
 
 <pre>
     class Custom {
@@ -209,7 +208,8 @@ Custom class example:
     };
 </pre>
 
-And a more complex example. A map of custom classes:
+User defined classes (more complex one, a map of classes)
+=========================================================
 
 <pre>
     class Custom {
@@ -289,7 +289,8 @@ And a more complex example. A map of custom classes:
     }
 </pre>
 
-Bitfields example, C style and C++ style:
+Bitfield (C and C++ style)
+==========================
 
 <pre>
     class BitsetClass {
@@ -338,13 +339,19 @@ Bitfields example, C style and C++ style:
     };
 </pre>
 
+Compression
+===========
+
 For compression, look at the following which uses [quicklz](http://www.quicklz.com/download.html)
 
 <pre>
     zipped_container_example.cpp
 </pre>
 
-To build:
+Building
+========
+
+Do
 
 <pre>
     sh ./RUNME
