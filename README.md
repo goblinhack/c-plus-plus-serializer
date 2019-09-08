@@ -12,7 +12,8 @@ in your project for any files that need to do serialization.
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it was saved in.
 
-Compression is not native but is provided below as an example via [quicklz](http://www.quicklz.com/download.html)
+Credits
+=======
 
 This work was based on some of the ideas in this thread, specifically,
 by Samuel Powell: [this link](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c) 
