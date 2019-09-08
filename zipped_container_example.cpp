@@ -73,7 +73,7 @@ static void save_zipper_container (const std::string filename)
     int srclen = out.tellg();
     out.seekg(0, std::ios::beg);
 
-    std::cout << "before compression:" << std::endl;
+    std::cout << "before compression ";
     hex_dump((char*)src, 0, srclen);
 
     //
@@ -94,7 +94,7 @@ static void save_zipper_container (const std::string filename)
     //
     // Dump the post compress buffer
     //
-    std::cout << "after compression:" << std::endl;
+    std::cout << "after compression ";
     hex_dump((char*)dst, 0, dstlen);
 
     //
@@ -137,7 +137,7 @@ static void load_zipper_container (const std::string filename)
     delete []src;
 #endif
 
-    std::cout << "decompressed as:" << std::endl;
+    std::cout << "decompressed as ";
     hex_dump((char*)dst, 0, newlen);
 
     std::istrstream in(dst, newlen);

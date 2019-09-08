@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+#include <iomanip>
 
 #define HEX_DUMP_WIDTH (16)
 
@@ -21,7 +23,7 @@ int hex_dump (const char *addr, size_t offset, size_t len)
     size_t i;
     unsigned int x;
 
-    printf("%p %zu bytes:\n", addr, len);
+    std::cout << std::dec << len << " bytes:" << std::endl;
 
     if (!len) {
         return (false);
@@ -31,7 +33,7 @@ int hex_dump (const char *addr, size_t offset, size_t len)
         if ((i % HEX_DUMP_WIDTH) == 0) {
             if (!skipping_blanks) {
                 if (i != 0) {
-                    printf(" |%*s|\n", HEX_DUMP_WIDTH, buf);
+                    std::cout << " |" << std::setw(HEX_DUMP_WIDTH) << buf << "|" << std::endl;
                 }
             }
 
@@ -45,18 +47,18 @@ int hex_dump (const char *addr, size_t offset, size_t len)
                 continue;
             }
 
-            printf("  %08X ", (unsigned int)(i + offset));
+            std::cout << "  " << std::setfill('0') << std::setw(4) << std::hex << i + offset;
 
             x = 0;
         }
 
         if (x && (((i % (HEX_DUMP_WIDTH/2))) == 0)) {
-            printf(" ");
+            std::cout << " ";
         }
 
         skipping_blanks = false;
 
-        printf(" %02X", pc[i]);
+        std::cout << " " << std::setfill('0') << std::setw(2) << std::hex << (int) pc[i];
 
         if ((pc[i] < ' ') || (pc[i] > '~')) {
             buf[i % HEX_DUMP_WIDTH] = '.';
@@ -69,23 +71,22 @@ int hex_dump (const char *addr, size_t offset, size_t len)
 
     if (!buf[0]) {
         if (skipping_blanks) {
-            printf("  *\n");
+            std::cout << "  *\n";
         }
 
         return (false);
     }
 
     while ((i % HEX_DUMP_WIDTH) != 0) {
-        printf ("   ");
-
+        std::cout << "   ";
         if (i && (((i % (HEX_DUMP_WIDTH/2))) == 0)) {
-            printf (" ");
+            std::cout << " ";
         }
 
         i++;
     }
 
-    printf(" |%*s|\n", -HEX_DUMP_WIDTH, buf);
+    std::cout << " |" << std::setw(-HEX_DUMP_WIDTH) << buf << "|" << std::endl;
 
     return (true);
 }
