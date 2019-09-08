@@ -8,6 +8,24 @@
 #include "hexdump.h"
 #include "quicklz.h"
 
+static std::vector<unsigned char> read_binary_file (const std::string filename)
+{
+    // binary mode is only for switching off newline translation
+    std::ifstream file(filename, std::ios::binary);
+    file.unsetf(std::ios::skipws);
+
+    std::streampos file_size;
+    file.seekg(0, std::ios::end);
+    file_size = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    std::vector<unsigned char> vec(file_size);
+    vec.insert(vec.begin(),
+               std::istream_iterator<unsigned char>(file),
+               std::istream_iterator<unsigned char>());
+    return (vec);
+}
+
 static void save_zipper_container (const std::string filename)
 {
     std::cout << "save to " << filename << std::endl;
@@ -84,30 +102,22 @@ static void save_zipper_container (const std::string filename)
 
 static void load_zipper_container (const std::string filename)
 {
-    qlz_state_decompress *state_decompress = 
-      (qlz_state_decompress *)new char[sizeof(qlz_state_decompress)];
+    auto vec = read_binary_file(filename);
+    auto src = (char*) new char[vec.size()];
+    std::copy(vec.begin(), vec.end(), src);
 
-    auto ifile = fopen(filename.c_str(), "rb");
-
-    // allocate source buffer
-    fseek(ifile, 0, SEEK_END);
-    auto len = ftell(ifile);
-    fseek(ifile, 0, SEEK_SET);
-    auto src = (char*) new char[len];
-
-    // read file and allocate destination buffer
-    fread(src, 1, len, ifile);
-    len = qlz_size_decompressed(src);
-    auto dst = (char*) new char[len];
+    auto dstlen = qlz_size_decompressed(src);
+    auto dst = (char*) new char[dstlen];
 
     // decompress and write result
-    len = qlz_decompress(src, dst, state_decompress);
-    fclose(ifile);
+    qlz_state_decompress *state_decompress = 
+      (qlz_state_decompress *)new char[sizeof(qlz_state_decompress)];
+    auto newlen = qlz_decompress(src, dst, state_decompress);
 
     std::cout << "decompressed as:" << std::endl;
-    hex_dump((char*)dst, 0, len);
+    hex_dump((char*)dst, 0, newlen);
 
-    std::istrstream in(dst, len);
+    std::istrstream in(dst, newlen);
 
     std::vector<std::string> a;
     std::list<std::string> b;
