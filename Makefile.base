@@ -7,6 +7,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/basic_example.o 			      \
     $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
+    $(OBJDIR)/unordered_map_example.o 		      \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
     $(OBJDIR)/custom_class_example.o 		      \
     $(OBJDIR)/bitfields_in_class_example.o            \
@@ -42,13 +43,3 @@ clobber: clean
 	mkdir -p $(OBJDIR)
 
 all: $(TARGET) 
-
-.o/basic_example.o: c_plus_plus_serializer.h
-.o/bitfields_in_class_example.o: c_plus_plus_serializer.h
-.o/container_example.o: c_plus_plus_serializer.h
-.o/zipped_container_example.o: c_plus_plus_serializer.h
-.o/custom_class_example.o: c_plus_plus_serializer.h
-.o/main.o: c_plus_plus_serializer.h
-.o/map_custom_class_example.o: c_plus_plus_serializer.h
-.o/map_example.o: c_plus_plus_serializer.h
-.o/map_string_to_list_of_strings_example.o: c_plus_plus_serializer.h

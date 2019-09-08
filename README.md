@@ -11,6 +11,21 @@ same architecture that it was saved in.
 This work was based on some of the ideas in this thread, specifically,
 by Samuel Powell: [this link](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c) 
 
+Tested types
+============
+
+1. POD types (char, int, float, double etc...)
+2. std::string
+3. std::vector
+4. std::list
+5. std::array (multidimensional works too)
+6. std::map
+7. std::unordered_map
+8. custom class
+
+Examples
+========
+
 Serializing basic POD types is fairly easy:
 
 <pre>
@@ -119,6 +134,26 @@ Maps:
     static void deserialize (std::ifstream in)
     {
         std::map< std::string, std::string > m;
+        in >> bits(m);
+    }
+</pre>
+
+Unordered maps:
+
+<pre>
+    static void serialize (std::ofstream out)
+    {
+        std::unordered_map< std::string, std::string > m;
+        m.insert(std::make_pair(std::string("key1"), std::string("value1")));
+        m.insert(std::make_pair(std::string("key2"), std::string("value2")));
+        m.insert(std::make_pair(std::string("key3"), std::string("value3")));
+        m.insert(std::make_pair(std::string("key4"), std::string("value4")));
+        out << bits(m);
+    }
+
+    static void deserialize (std::ifstream in)
+    {
+        std::unordered_map< std::string, std::string > m;
         in >> bits(m);
     }
 </pre>

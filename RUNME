@@ -22,6 +22,7 @@
 rm -f Makefile
 cat Makefile.base | sed '/DO NOT DELETE/,$d' > Makefile.tmp
 mv Makefile.tmp Makefile
+makedepend *.cpp -p .o/ 2>/dev/null
 
 echo "COMPILER_FLAGS=-Werror -g -ggdb3 -O0 $SDL_FLAGS # AUTOGEN" >> .Makefile
 echo "COMPILER_FLAGS=-Werror -g -ggdb3 -O2 $SDL_FLAGS # AUTOGEN" > .Makefile

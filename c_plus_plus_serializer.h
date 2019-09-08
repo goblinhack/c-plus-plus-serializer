@@ -4,7 +4,6 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <map>
 
 //
 // 64 bits for serializing is a bit overkill for serializing, so use int
@@ -148,9 +147,17 @@ static inline std::istream& operator>>(std::istream &in, Bits<C<T> &> v)
 ////////////////////////////////////////////////////////////////////////////
 // Read/write map
 ////////////////////////////////////////////////////////////////////////////
-template <class K, class V>
+
+template <
+    template < class K,
+               class V,
+               class Compare = std::less<K>,
+               class Alloc = std::allocator<std::pair<const K,V> >
+               > class M,
+    class K, class V >
+
 static inline std::ostream& operator<<(std::ostream &out, 
-                                       Bits<std::map<K,V> &> const m)
+                                       Bits<M<K,V> &> const m)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write map<K,V> " << m.t.size() << " elems" << std::endl;
@@ -161,9 +168,16 @@ static inline std::ostream& operator<<(std::ostream &out,
     return (out);
 }
 
-template <class K, class V>
+template <
+    template < class K,
+               class V,
+               class Compare = std::less<K>,
+               class Alloc = std::allocator<std::pair<const K,V> >
+               > class M,
+    class K, class V >
+
 static inline std::ostream& operator<<(std::ostream &out, 
-                                       Bits<std::map<K,const V> &> const m)
+                                       Bits<M<K,const V> &> const m)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write map<K,const V> " << m.t.size() << " elems" << std::endl;
@@ -174,14 +188,96 @@ static inline std::ostream& operator<<(std::ostream &out,
     return (out);
 }
 
-template <class K, class V>
+template <
+    template < class K,
+               class V,
+               class Compare = std::less<K>,
+               class Alloc = std::allocator<std::pair<const K,V> >
+               > class M,
+    class K, class V >
+
 static inline std::istream& operator>>(std::istream &in, 
-                                       Bits<std::map<K,V> &> m)
+                                       Bits<M<K,V> &> m)
 {
     my_size_t sz = 0;
     in >> bits(sz);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read map<K,V> " << sz << " elems" << std::endl;
+#endif
+    if (in && sz) {
+        while (sz--) {
+            K k;
+            V v;
+            in >> bits(k) >> bits(v);
+            m.t.insert(std::make_pair(k, v));
+        }
+    }
+
+    return in;
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Read/write unordered_map
+////////////////////////////////////////////////////////////////////////////
+
+template <
+    template < class K,
+               class T,
+               class Hash = std::hash<K>,
+               class Pred = std::equal_to<K>,
+               class Alloc = std::allocator< std::pair<const K,T> >
+               > class M,
+    class K, class V >
+
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<M<K,V> &> const m)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write unordered_map<K,V> " << m.t.size() << " elems" << std::endl;
+#endif
+    my_size_t sz = m.t.size();
+    out << bits(sz);
+    for (auto i : m.t) { out << bits(i.first) << bits(i.second); }
+    return (out);
+}
+
+template <
+    template < class K,
+               class T,
+               class Hash = std::hash<K>,
+               class Pred = std::equal_to<K>,
+               class Alloc = std::allocator< std::pair<const K,T> >
+               > class M,
+    class K, class V >
+
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<M<K,const V> &> const m)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write unordered_map<K,const V> " << m.t.size() << " elems" << std::endl;
+#endif
+    my_size_t sz = m.t.size();
+    out << bits(sz);
+    for (auto i : m.t) { out << bits(i.first) << bits(i.second); }
+    return (out);
+}
+
+template <
+    template < class K,
+               class T,
+               class Hash = std::hash<K>,
+               class Pred = std::equal_to<K>,
+               class Alloc = std::allocator< std::pair<const K,T> >
+               > class M,
+    class K, class V >
+
+static inline std::istream& operator>>(std::istream &in, 
+                                       Bits<M<K,V> &> m)
+{
+    my_size_t sz = 0;
+    in >> bits(sz);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "read unordered_map<K,V> " << sz << " elems" << std::endl;
 #endif
     if (in && sz) {
         while (sz--) {
