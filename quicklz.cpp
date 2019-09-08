@@ -221,6 +221,7 @@ static __inline void memcpy_up(unsigned char *dst, const unsigned char *src, ui3
 #endif
 }
 
+#if QLZ_COMPRESSION_LEVEL != 3
 static __inline void update_hash(qlz_state_decompress *state, const unsigned char *s)
 {
 #if QLZ_COMPRESSION_LEVEL == 1
@@ -240,6 +241,7 @@ static __inline void update_hash(qlz_state_decompress *state, const unsigned cha
 	(void)state;
 	(void)s;
 }
+#endif
 
 #if QLZ_COMPRESSION_LEVEL <= 2
 static void update_hash_upto(qlz_state_decompress *state, unsigned char **lh, const unsigned char *max)
