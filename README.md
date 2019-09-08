@@ -15,8 +15,8 @@ same architecture that it was saved in.
 Credits
 =======
 
-This work was based on some of the ideas in this thread, specifically,
-by Samuel Powell: [this link](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c) 
+This work was based on some of the ideas in [this link](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c), specifically,
+those by Samuel Powell: 
 
 Tested types
 ============
