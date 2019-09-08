@@ -1,1 +1,5 @@
-int hex_dump(const char *addr, size_t offset, size_t len);
+#include <vector>
+#include <cstddef>
+
+void hex_dump (std::vector<char> &v);
+void hex_dump(const char *addr, size_t len);

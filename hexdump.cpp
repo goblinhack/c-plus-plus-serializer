@@ -1,10 +1,11 @@
-#include <stdio.h>
 #include <string.h>
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 #define HEX_DUMP_WIDTH (16)
 
+// 
 // e.g.
 // 00000000  02 00 00 00 09 00 00 00  76 65 63 2D 65 6C 65 6D |........vec-elem|
 // 00000010  31 09 00 00 00 76 65 63  2D 65 6C 65 6D 32 02 00 |1....vec-elem2..|
@@ -14,7 +15,8 @@
 // 00000050  00 00 00 00 00 00 12 61  72 72 2D 65 6C 65 6D 32 |.......arr-elem2|
 // 00000060  00 00 00 00 00 00 00 00  00 00 00 00 00 00 30 31 |..............01|
 // 00000070  32 33 34 35 61 62 63 64  65 66 67 68 69 6A 6B 6C |2345abcdefghi
-int hex_dump (const char *addr, size_t offset, size_t len)
+// 
+void hex_dump (const char *addr, size_t len)
 {
     int skipping_blanks = false;
     unsigned char empty[HEX_DUMP_WIDTH] = {0};
@@ -26,7 +28,7 @@ int hex_dump (const char *addr, size_t offset, size_t len)
     std::cout << std::dec << len << " bytes:" << std::endl;
 
     if (!len) {
-        return (false);
+        return;
     }
 
     for (i = 0, x = 0; i < len; i++, x++) {
@@ -47,7 +49,7 @@ int hex_dump (const char *addr, size_t offset, size_t len)
                 continue;
             }
 
-            std::cout << "  " << std::setfill('0') << std::setw(4) << std::hex << i + offset;
+            std::cout << "  " << std::setfill('0') << std::setw(4) << std::hex << i;
 
             x = 0;
         }
@@ -74,7 +76,7 @@ int hex_dump (const char *addr, size_t offset, size_t len)
             std::cout << "  *\n";
         }
 
-        return (false);
+        return;
     }
 
     while ((i % HEX_DUMP_WIDTH) != 0) {
@@ -87,6 +89,9 @@ int hex_dump (const char *addr, size_t offset, size_t len)
     }
 
     std::cout << " |" << std::setw(-HEX_DUMP_WIDTH) << buf << "|" << std::endl;
+}
 
-    return (true);
+void hex_dump (std::vector<char> &v)
+{
+    hex_dump(v.data(), v.size());
 }
