@@ -1,7 +1,11 @@
 Simple C++ 11 header-only serializer
 ====================================
 
-A very minimal C++11 header only serializer. All you need to do is add
+Have you ever wanted a really minimal header-only C++11 serializer? Of course 
+you have! Having tried some other implementations I found them too hard to
+maintain and grok when they inevitably failed to compile under the latest
+g++ version. Hopefully this one is simple enough to avoid such issues. All you 
+need to do is add
 
 <pre>
 #include "c_plus_plus_serializer.h" 
