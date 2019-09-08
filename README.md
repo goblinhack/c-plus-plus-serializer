@@ -1,12 +1,18 @@
 Simple C++ 11 header-only serializer
 ====================================
 
-A very minimal C++11 header only serializer. All you need to do is include
-"c_plus_plus_serializer.h" in your project for any files that need to do
-serialization.
+A very minimal C++11 header only serializer. All you need to do is add
+
+<pre>
+#include "c_plus_plus_serializer.h" 
+</pre>
+
+in your project for any files that need to do serialization.
 
 The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it was saved in.
+
+Compression is not native but is provided below as an example via [quicklz](http://www.quicklz.com/download.html)
 
 This work was based on some of the ideas in this thread, specifically,
 by Samuel Powell: [this link](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c) 
