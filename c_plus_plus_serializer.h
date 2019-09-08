@@ -2,6 +2,7 @@
 #define C_PLUS_PLUS_SERIALIZER
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <map>
 
@@ -32,23 +33,23 @@ static inline Bits<const TYPE&> bits(const TYPE& t)
 // Read/write POD types
 ////////////////////////////////////////////////////////////////////////////
 template<typename TYPE>
-static inline std::istream& operator>>(std::istream& s, Bits<TYPE&> b)
+static inline std::istream& operator>>(std::istream& in, Bits<TYPE&> b)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read " << sizeof(TYPE) << " bytes" << std::endl;
 #endif
-    return s.read((char*)(&b.t), sizeof(TYPE));
+    return in.read(reinterpret_cast<char*>(&b.t), sizeof(TYPE));
 }
 
 template<typename TYPE>
-static inline std::ostream& operator<<(std::ostream &s, Bits<TYPE&> const b)
+static inline std::ostream& operator<<(std::ostream &out, Bits<TYPE&> const b)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write " << sizeof(TYPE) << " bytes" << std::endl;
 #endif
     // reinterpret_cast is for pointer conversion
     // static_cast is for compatible pointer conversion
-    return s.write(reinterpret_cast<const char*>(&(b.t)), sizeof(TYPE));
+    return out.write(reinterpret_cast<const char*>(&(b.t)), sizeof(TYPE));
 }
 
 ////////////////////////////////////////////////////////////////////////////

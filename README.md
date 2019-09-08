@@ -300,6 +300,12 @@ Bitfields example, C style and C++ style:
     };
 </pre>
 
+For compression, look at the following which uses quicklz
+
+<pre>
+    zipped_container_example.cpp
+</pre>
+
 To build:
 
 <pre>

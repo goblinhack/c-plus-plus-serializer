@@ -19,6 +19,7 @@ OBJDIR=.o
 
 TARGET_OBJECTS=					      \
     $(OBJDIR)/main.o 				      \
+    $(OBJDIR)/hexdump.o 		              \
     $(OBJDIR)/basic_example.o 			      \
     $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
@@ -26,6 +27,8 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/custom_class_example.o 		      \
     $(OBJDIR)/bitfields_in_class_example.o            \
     $(OBJDIR)/map_custom_class_example.o 	      \
+    $(OBJDIR)/zipped_container_example.o 	      \
+    $(OBJDIR)/quicklz.o 	                      \
 
 EXTRA_CFLAGS=-std=c++11
 #EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER
@@ -59,6 +62,7 @@ all: $(TARGET)
 .o/basic_example.o: c_plus_plus_serializer.h
 .o/bitfields_in_class_example.o: c_plus_plus_serializer.h
 .o/container_example.o: c_plus_plus_serializer.h
+.o/zipped_container_example.o: c_plus_plus_serializer.h
 .o/custom_class_example.o: c_plus_plus_serializer.h
 .o/main.o: c_plus_plus_serializer.h
 .o/map_custom_class_example.o: c_plus_plus_serializer.h

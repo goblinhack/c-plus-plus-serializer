@@ -22,5 +22,8 @@ int main (int argc, char *argv[])
     extern void custom_bitset_class_example();
     custom_bitset_class_example();
 
+    extern void zipper_container_example();
+    zipper_container_example();
+
     return (0);
 }
