@@ -8,7 +8,7 @@
 #include "hexdump.h"
 #include "quicklz.h"
 
-static std::vector<unsigned char> read_binary_file (const std::string filename)
+static std::vector<char> read_binary_file (const std::string filename)
 {
     // binary mode is only for switching off newline translation
     std::ifstream file(filename, std::ios::binary);
@@ -19,10 +19,10 @@ static std::vector<unsigned char> read_binary_file (const std::string filename)
     file_size = file.tellg();
     file.seekg(0, std::ios::beg);
 
-    std::vector<unsigned char> vec(file_size);
+    std::vector<char> vec(file_size);
     vec.insert(vec.begin(),
-               std::istream_iterator<unsigned char>(file),
-               std::istream_iterator<unsigned char>());
+               std::istream_iterator<char>(file),
+               std::istream_iterator<char>());
     return (vec);
 }
 
@@ -102,17 +102,33 @@ static void save_zipper_container (const std::string filename)
 
 static void load_zipper_container (const std::string filename)
 {
+    //
+    // Read to a vector and then copy to a C buffer for qlz to use
+    //
     auto vec = read_binary_file(filename);
+
+    //
+    // Avoid copying, a bit hacky, but should work
+    //
+#ifdef MAKE_COPY
     auto src = (char*) new char[vec.size()];
     std::copy(vec.begin(), vec.end(), src);
+#else
+    auto src = vec.data();
+#endif
 
+    //
+    // Decompress
+    //
     auto dstlen = qlz_size_decompressed(src);
     auto dst = (char*) new char[dstlen];
-
-    // decompress and write result
     qlz_state_decompress *state_decompress = 
       (qlz_state_decompress *)new char[sizeof(qlz_state_decompress)];
     auto newlen = qlz_decompress(src, dst, state_decompress);
+
+#ifdef MAKE_COPY
+    delete []src;
+#endif
 
     std::cout << "decompressed as:" << std::endl;
     hex_dump((char*)dst, 0, newlen);
