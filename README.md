@@ -22,6 +22,7 @@ Tested types
 6. std::map
 7. std::unordered_map
 8. custom class
+9. nested types e.g. std::map<std::string, std::list>
 
 POD serialization
 =================
@@ -182,8 +183,8 @@ std::map<std::string, std::list> example
     }
 </pre>
 
-User defined classes
-====================
+User defined class serialization
+================================
 
 <pre>
     class Custom {
@@ -208,8 +209,8 @@ User defined classes
     };
 </pre>
 
-User defined classes (more complex one, a map of classes)
-=========================================================
+User defined class serialization (more complex one, a map of classes)
+=====================================================================
 
 <pre>
     class Custom {
@@ -289,8 +290,8 @@ User defined classes (more complex one, a map of classes)
     }
 </pre>
 
-Bitfield (C and C++ style)
-==========================
+Bitfield serialization (C and C++ style)
+========================================
 
 <pre>
     class BitsetClass {
