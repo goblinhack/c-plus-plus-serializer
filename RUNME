@@ -120,7 +120,7 @@ make $CORES $* all
 
 if [ $? -eq 0 ]
 then
-    log_info "Run c_plus_plus_serializer to start"
+    log_info "Run ./c_plus_plus_serializer to start"
 
     rm -f Makefile.bak
 else

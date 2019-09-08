@@ -10,7 +10,11 @@ static void save_container (const std::string filename)
     std::cout << "save to " << filename << std::endl;
     std::ofstream out(filename, std::ios::binary );
 
-    std::initializer_list<std::string> d1 = {"vec-elem1", "vec-elem2"};
+    std::initializer_list<std::string> d1 = {
+        "vec-elem1", 
+        "vec-elem2"
+        "vec-elem3, I may not have gone where I intended to go, but I think I have ended up where I needed to be.",
+    };
     std::vector<std::string> a(d1);
 
     std::initializer_list<std::string> d2 = {"list-elem1", "list-elem2"};
