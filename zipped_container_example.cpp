@@ -81,6 +81,13 @@ static void save_zipper_container (const std::string filename)
     //
     qlz_state_compress *state_compress = 
       (qlz_state_compress *)new char[sizeof(qlz_state_compress)];
+
+    //
+    // http://www.quicklz.com/manual.html
+    //
+    // The destination buffer must be at least size + 400 bytes large because 
+    // incompressible data may increase in size.
+    // 
     auto dst = new char[srclen + 400 /* qlz header */];
     auto dstlen = qlz_compress(src, dst, srclen, state_compress);
 
@@ -107,13 +114,13 @@ static void load_zipper_container (const std::string filename)
     //
     auto vec = read_binary_file(filename);
 
-    //
-    // Avoid copying, a bit hacky, but should work
-    //
 #ifdef MAKE_COPY
     auto src = (char*) new char[vec.size()];
     std::copy(vec.begin(), vec.end(), src);
 #else
+    //
+    // Avoid copying, a bit hacky, but should work
+    //
     auto src = vec.data();
 #endif
 
