@@ -102,7 +102,7 @@ static void load_map_key_string_value_custom (const std::string filename)
 void map_custom_class_example (void)
 {
     std::cout << "map key string, value class" << std::endl;
-    std::cout << "============================" << std::endl;
+    std::cout << "===========================" << std::endl;
     save_map_key_string_value_custom(std::string("map_of_custom_class.bin"));
     load_map_key_string_value_custom(std::string("map_of_custom_class.bin"));
 }

@@ -303,7 +303,7 @@ Bitfields example, C style and C++ style:
     };
 </pre>
 
-For compression, look at the following which uses quicklz
+For compression, look at the following which uses [quicklz](http://www.quicklz.com/download.html)
 
 <pre>
     zipped_container_example.cpp

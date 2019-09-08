@@ -99,7 +99,7 @@ static void load_container (const std::string filename)
 void container_example (void)
 {
     std::cout << "container_example" << std::endl;
-    std::cout << "=============" << std::endl;
+    std::cout << "=================" << std::endl;
     save_container(std::string("container_example.bin"));
     load_container(std::string("container_example.bin"));
 }
