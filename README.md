@@ -9,11 +9,7 @@ The data is saved in raw binary format, hence this is only loadable on the
 same architecture that it was saved in.
 
 This work was based on some of the ideas in this thread, specifically,
-Samuel Powell
-
-<pre>
-    https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c
-</pre>
+by Samuel Powell: [this linke](https://stackoverflow.com/questions/1559254/are-there-binary-memory-streams-in-c) 
 
 Serializing basic POD types is fairly easy:
 
