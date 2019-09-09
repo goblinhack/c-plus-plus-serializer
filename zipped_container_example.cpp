@@ -128,14 +128,10 @@ static void load_zipper_container (const std::string filename)
     // Decompress
     //
     auto dstlen = qlz_size_decompressed(src);
-    auto dst = (char*) new char[dstlen];
+    auto dst = new char[dstlen];
     qlz_state_decompress *state_decompress = 
       (qlz_state_decompress *)new char[sizeof(qlz_state_decompress)];
     auto newlen = qlz_decompress(src, dst, state_decompress);
-
-#ifdef MAKE_COPY
-    delete []src;
-#endif
 
     std::cout << "decompressed as ";
     hexdump(dst, newlen);
@@ -186,6 +182,12 @@ static void load_zipper_container (const std::string filename)
         }
     }
     std::cout << std::endl;
+
+    delete state_decompress;
+#ifdef MAKE_COPY
+    delete []src;
+#endif
+    delete []dst;
 }
 
 void zipper_container_example (void)
