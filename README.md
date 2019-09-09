@@ -220,6 +220,63 @@ User defined class serialization
     };
 </pre>
 
+Serializing a custom template class
+===================================
+
+<pre>
+    template<class T> class MyPoint
+    {
+    public:
+	T x {};
+	T y {};
+
+	MyPoint (void) : x(0), y(0) {};
+
+	MyPoint (T x, T y) : x(x), y(y) { }
+
+	friend std::ostream& operator<<(std::ostream &out,
+					Bits<const MyPoint & > const my)
+	{
+	    out << bits(my.t.x) << bits(my.t.y);
+	    return (out);
+	}
+
+	friend std::istream& operator>>(std::istream &in, Bits<MyPoint &> my)
+	{
+	    in >> bits(my.t.x) >> bits(my.t.y);
+	    return (in);
+	}
+
+	friend std::ostream& operator << (std::ostream &out, const MyPoint &my)
+	{
+	    out << "(" << my.x << ", " << my.y << ")";
+	    return (out);
+	}
+    };
+
+    typedef MyPoint<int> IntPoint;
+    typedef MyPoint<float> FloatPoint;
+    typedef MyPoint<double> DoublePoint;
+
+    static void serialize (std::ofstream out)
+    {
+	out << bits(IntPoint(1, 2));
+	out << bits(FloatPoint(1.1, 2.2));
+	out << bits(DoublePoint(3.3, 4.4));
+    }
+
+    static void deserialize (std::ifstream in)
+    {
+	IntPoint a;
+	FloatPoint b;
+	DoublePoint c;
+
+	in >> bits(a);
+	in >> bits(b);
+	in >> bits(c);
+    }
+</pre>
+
 User defined class serialization (more complex one, a map of classes)
 =====================================================================
 

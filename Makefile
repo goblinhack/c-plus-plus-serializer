@@ -27,6 +27,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/unordered_map_example.o 		      \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
     $(OBJDIR)/custom_class_example.o 		      \
+    $(OBJDIR)/template_class_example.o 		      \
     $(OBJDIR)/bitfields_in_class_example.o            \
     $(OBJDIR)/map_custom_class_example.o 	      \
     $(OBJDIR)/zipped_container_example.o 	      \
@@ -118,6 +119,7 @@ all: $(TARGET)
 .o/quicklz.o: /usr/include/secure/_strings.h /usr/include/secure/_common.h
 .o/quicklz.o: /usr/include/secure/_string.h
 .o/raw_memory.o: c_plus_plus_serializer.h hexdump.h
+.o/template_class_example.o: c_plus_plus_serializer.h
 .o/unordered_map_example.o: c_plus_plus_serializer.h
 .o/zipped_container_example.o: c_plus_plus_serializer.h hexdump.h quicklz.h
 .o/zipped_container_example.o: /usr/include/string.h /usr/include/_types.h
