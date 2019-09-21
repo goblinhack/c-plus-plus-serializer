@@ -3,7 +3,7 @@
 #include <array>
 #include <map>
 #include <limits>
-#include <strstream>
+#include <sstream>
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
 #include "quicklz.h"
@@ -136,7 +136,8 @@ static void load_zipper_container (const std::string filename)
     std::cout << "decompressed as ";
     hexdump(dst, newlen);
 
-    std::istrstream in(dst, newlen);
+    std::string s((const char *)dst, (size_t)newlen);
+    std::istringstream in(s);
 
     std::vector<std::string> a;
     std::list<std::string> b;
