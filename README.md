@@ -95,7 +95,7 @@ Container serialization
         //
         // 3d array
         //
-        std::array<std::array<std::array<char, 2>, 3>, 4> ddd;
+        std::array\<std::array\<std::array<char, 2>, 3>, 4> ddd;
         ddd[0][0][0] = 'a'; ddd[0][0][1] = 'b';
         ddd[0][1][0] = 'c'; ddd[0][1][1] = 'd';
         ddd[0][2][0] = 'e'; ddd[0][2][1] = 'f';
