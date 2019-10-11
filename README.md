@@ -33,7 +33,7 @@ Tested types
 6. std::map
 7. std::unordered_map
 8. custom class
-9. nested types e.g. std::map<std::string, std::list>
+9. nested types e.g. std::map< std::string, std::list>
 
 POD serialization
 =================
@@ -76,18 +76,18 @@ Container serialization
 
     static void serialize (std::ofstream out)
     {
-        std::initializer_list<std::string> d1 = {"vec-elem1", "vec-elem2"};
-	std::vector<std::string> a(d1);
+        std::initializer_list< std::string> d1 = {"vec-elem1", "vec-elem2"};
+	std::vector< std::string> a(d1);
 
-	std::initializer_list<std::string> d2 = {"list-elem1", "list-elem2"};
-	std::list<std::string> b(d2);
+	std::initializer_list< std::string> d2 = {"list-elem1", "list-elem2"};
+	std::list< std::string> b(d2);
 
-	std::array<std::string, 2> c = {"arr-elem1", "arr-elem2"};
+	std::array< std::string, 2> c = {"arr-elem1", "arr-elem2"};
 
         //
         // 2d array
         //
-	std::array<std::array<char, 2>, 3> d;
+	std::array< std::array<char, 2>, 3> d;
 	d[0][0] = '0'; d[0][1] = '1';
 	d[1][0] = '2'; d[1][1] = '3';
 	d[2][0] = '4'; d[2][1] = '5';
@@ -95,7 +95,7 @@ Container serialization
         //
         // 3d array
         //
-        std::array\\<std::array\\<std::array<char, 2>, 3>, 4> ddd;
+        std::array< std::array< std::array<char, 2>, 3>, 4> ddd;
         ddd[0][0][0] = 'a'; ddd[0][0][1] = 'b';
         ddd[0][1][0] = 'c'; ddd[0][1][1] = 'd';
         ddd[0][2][0] = 'e'; ddd[0][2][1] = 'f';
@@ -115,11 +115,11 @@ Container serialization
     static void deserialize (std::ifstream in)
     {
         std::string f;
-	std::vector<std::string> a;
-	std::list<std::string> b;
-	std::array<std::string, 2> c;
-	std::array<std::array<char, 2>, 3> d;
-        std::array<std::array<std::array<char, 2>, 3>, 4> ddd;
+	std::vector< std::string> a;
+	std::list< std::string> b;
+	std::array< std::string, 2> c;
+	std::array< std::array<char, 2>, 3> d;
+        std::array< std::array< std::array<char, 2>, 3>, 4> ddd;
 
         in >> bits(a) >> bits(b) >> bits(c) >> bits(dd) >> bits(ddd);
     }
@@ -167,18 +167,18 @@ Unordered map serialization
     }
 </pre>
 
-std::map<std::string, std::list> example
+std::map< std::string, std::list> example
 ========================================
 
 <pre>
     static void serialize (std::ofstream out)
     {
-        std::map< std::string, std::list<std::string> > m;
+        std::map< std::string, std::list< std::string> > m;
 
-        std::initializer_list<std::string> L1 = {"list-elem1", "list-elem2"};
-        std::list<std::string> l1(L1);
-        std::initializer_list<std::string> L2 = {"list-elem3", "list-elem4"};
-        std::list<std::string> l2(L2);
+        std::initializer_list< std::string> L1 = {"list-elem1", "list-elem2"};
+        std::list< std::string> l1(L1);
+        std::initializer_list< std::string> L2 = {"list-elem3", "list-elem4"};
+        std::list< std::string> l2(L2);
 
         m.insert(std::make_pair(std::string("key1"), l1));
         m.insert(std::make_pair(std::string("key2"), l2));
@@ -188,7 +188,7 @@ std::map<std::string, std::list> example
 
     static void deserialize (std::ifstream in)
     {
-        std::map< std::string, std::list<std::string> > m;
+        std::map< std::string, std::list< std::string> > m;
 
         in >> bits(m);
     }
@@ -202,7 +202,7 @@ User defined class serialization
     public:
         int a;
         std::string b;
-        std::vector<std::string> c;
+        std::vector< std::string> c;
 
         friend std::ostream& operator<<(std::ostream &out,
                                         Bits<class Custom & > my)
@@ -285,7 +285,7 @@ User defined class serialization (more complex one, a map of classes)
     public:
         int a;
         std::string b;
-        std::vector<std::string> c;
+        std::vector< std::string> c;
 
         friend std::ostream& operator<<(std::ostream &out,
                                         Bits<class Custom & > my)
@@ -323,15 +323,15 @@ User defined class serialization (more complex one, a map of classes)
         auto c1 = Custom();
         c1.a = 1;
         c1.b = "hello";
-        std::initializer_list<std::string> L1 = {"vec-elem1", "vec-elem2"};
-        std::vector<std::string> l1(L1);
+        std::initializer_list< std::string> L1 = {"vec-elem1", "vec-elem2"};
+        std::vector< std::string> l1(L1);
         c1.c = l1;
 
         auto c2 = Custom();
         c2.a = 2;
         c2.b = "there";
-        std::initializer_list<std::string> L2 = {"vec-elem3", "vec-elem4"};
-        std::vector<std::string> l2(L2);
+        std::initializer_list< std::string> L2 = {"vec-elem3", "vec-elem4"};
+        std::vector< std::string> l2(L2);
         c2.c = l2;
 
         m.insert(std::make_pair(std::string("key1"), c1));
