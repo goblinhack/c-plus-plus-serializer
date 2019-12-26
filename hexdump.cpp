@@ -62,7 +62,6 @@ void hexdump (const char *addr, size_t len)
 
         std::cout << " " << std::setfill('0') << std::setw(2) << std::hex << (int) pc[i];
 
-printf("[%02X]", pc[i]);
         if ((pc[i] < ' ') || (pc[i] > '~')) {
             buf[i % HEX_DUMP_WIDTH] = '.';
         } else {
