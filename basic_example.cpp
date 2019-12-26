@@ -1,4 +1,5 @@
 #include "c_plus_plus_serializer.h"
+#include <limits>
 
 static void save_simple (const std::string filename)
 {

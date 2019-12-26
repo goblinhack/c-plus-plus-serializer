@@ -4,6 +4,7 @@
 #include <map>
 #include <limits>
 #include <sstream>
+#include <iterator>
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
 #include "quicklz.h"
