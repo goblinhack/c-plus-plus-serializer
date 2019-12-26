@@ -5,7 +5,6 @@
 #include <limits>
 #include <sstream>
 #include <iterator>
-#define DEBUG_C_PLUS_PLUS_SERIALIZER
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
 #include "quicklz.h"
@@ -65,24 +64,18 @@ static void save_zipper_container (const std::string filename)
     ddd[3][1][0] = 'u'; ddd[3][1][1] = 'v';
     ddd[3][2][0] = 'w'; ddd[3][2][1] = 'x';
 
-std::cout << "a   " << sizeof(a) << std::endl;
-std::cout << "b   " << sizeof(b) << std::endl;
-std::cout << "c   " << sizeof(c) << std::endl;
-std::cout << "dd  " << sizeof(dd) << std::endl;
-std::cout << "ddd " << sizeof(ddd) << std::endl;
     out << bits(a) << bits(b) << bits(c) << bits(dd) << bits(ddd);
 
     //
     // Get the pre compress buffer
     //
-    std::string tmp = out.str();
+    auto src = out.str().c_str();
     out.seekg(0, std::ios::end);
     int srclen = out.tellg();
     out.seekg(0, std::ios::beg);
 
-std::cout << "len " << tmp.size() << std::endl;
     std::cout << "before compression ";
-    hexdump(tmp.c_str(), srclen);
+    hexdump(src, srclen);
 
     //
     // Compress
@@ -97,7 +90,7 @@ std::cout << "len " << tmp.size() << std::endl;
     // incompressible data may increase in size.
     // 
     auto dst = new char[srclen + 400 /* qlz header */];
-    auto dstlen = qlz_compress(tmp.c_str(), dst, srclen, state_compress);
+    auto dstlen = qlz_compress(src, dst, srclen, state_compress);
 
     //
     // Dump the post compress buffer
