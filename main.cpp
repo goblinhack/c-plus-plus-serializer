@@ -1,6 +1,7 @@
 
 int main (int argc, char *argv[])
 {
+#if 0
     extern void basic_example(void);
     basic_example();
 
@@ -31,6 +32,7 @@ int main (int argc, char *argv[])
     extern void custom_bitset_class_example();
     custom_bitset_class_example();
 
+#endif
     extern void zipper_container_example();
     zipper_container_example();
 
