@@ -5,6 +5,7 @@
 #include <limits>
 #include <sstream>
 #include <iterator>
+#define DEBUG_C_PLUS_PLUS_SERIALIZER
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
 #include "quicklz.h"
@@ -69,13 +70,13 @@ static void save_zipper_container (const std::string filename)
     //
     // Get the pre compress buffer
     //
-    auto src = out.str().c_str();
+    std::string tmp = out.str();
     out.seekg(0, std::ios::end);
     int srclen = out.tellg();
     out.seekg(0, std::ios::beg);
 
     std::cout << "before compression ";
-    hexdump(src, srclen);
+    hexdump(tmp.c_str(), srclen);
 
     //
     // Compress
@@ -90,7 +91,7 @@ static void save_zipper_container (const std::string filename)
     // incompressible data may increase in size.
     // 
     auto dst = new char[srclen + 400 /* qlz header */];
-    auto dstlen = qlz_compress(src, dst, srclen, state_compress);
+    auto dstlen = qlz_compress(tmp.c_str(), dst, srclen, state_compress);
 
     //
     // Dump the post compress buffer
