@@ -1,15 +1,4 @@
-#include <list>
-#include <vector>
-#include <array>
-#include <map>
-#include <limits>
 #include "c_plus_plus_serializer.h"
-#include <locale>
-#include <iostream>
-#include <fcntl.h>
-#include <locale>
-#include <clocale>
-#include <codecvt>
 
 static void save_simple (const std::string filename)
 {
