@@ -293,6 +293,63 @@ static inline std::istream& operator>>(std::istream &in, Bits<C<T> &> v)
 }
 
 ////////////////////////////////////////////////////////////////////////////
+// Read/write std::array
+////////////////////////////////////////////////////////////////////////////
+template <
+  class T, 
+  std::size_t N,
+  template <typename ELEM, std::size_t > class C>
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<C<T, N> &> const v)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write array container<T> " << v.t.size() << " elems" << std::endl;
+#endif
+    my_size_t sz = v.t.size();
+    out << bits(sz);
+    for (auto i : v.t) { out << bits(i); }
+    return (out);
+}
+
+template <
+  class T, 
+  std::size_t N,
+  template <typename ELEM, std::size_t > class C>
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<const C<T, N> &> const v)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write array container<const T> " << v.t.size() << " elems" << std::endl;
+#endif
+    my_size_t sz = v.t.size();
+    out << bits(sz);
+    for (auto i : v.t) { out << bits(i); }
+    return (out);
+}
+
+template <
+  class T, 
+  std::size_t N,
+  template <typename ELEM, std::size_t > class C>
+static inline std::istream& operator>>(std::istream &in, Bits<C<T, N> &> v)
+{
+    my_size_t sz = 0;
+    in >> bits(sz);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "read array container<T> " << sz << " elems" << std::endl;
+#endif
+    if (in && sz) {
+        for (auto n = 0; n < sz; n++) {
+            T s;
+            in >> bits(s);
+            v.t[n] = s;
+        }
+    }
+
+    return in;
+}
+
+////////////////////////////////////////////////////////////////////////////
 // Read/write map
 ////////////////////////////////////////////////////////////////////////////
 

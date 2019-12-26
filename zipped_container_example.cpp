@@ -65,6 +65,11 @@ static void save_zipper_container (const std::string filename)
     ddd[3][1][0] = 'u'; ddd[3][1][1] = 'v';
     ddd[3][2][0] = 'w'; ddd[3][2][1] = 'x';
 
+std::cout << "a   " << sizeof(a) << std::endl;
+std::cout << "b   " << sizeof(b) << std::endl;
+std::cout << "c   " << sizeof(c) << std::endl;
+std::cout << "dd  " << sizeof(dd) << std::endl;
+std::cout << "ddd " << sizeof(ddd) << std::endl;
     out << bits(a) << bits(b) << bits(c) << bits(dd) << bits(ddd);
 
     //
