@@ -70,10 +70,6 @@ static void save_zipper_container (const std::string filename)
     //
     // Get the pre compress buffer
     //
-for (auto s : out.str()) {
-    printf("%02X ", s);
-}
-    std::string src = out.str();
     std::string tmp = out.str();
     out.seekg(0, std::ios::end);
     int srclen = out.tellg();
