@@ -248,7 +248,7 @@ static inline std::ostream& operator<<(std::ostream &out,
                                        Bits<C<T> &> const v)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-    std::cout << "write container<string> " << v.t.size() << " elems" << std::endl;
+    std::cout << "write container<T> " << v.t.size() << " elems" << std::endl;
 #endif
     my_size_t sz = v.t.size();
     out << bits(sz);

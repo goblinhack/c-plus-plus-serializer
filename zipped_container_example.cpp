@@ -5,6 +5,7 @@
 #include <limits>
 #include <sstream>
 #include <iterator>
+#define USE_SIZE_T
 #define DEBUG_C_PLUS_PLUS_SERIALIZER
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
