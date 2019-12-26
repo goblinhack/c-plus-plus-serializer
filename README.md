@@ -25,8 +25,8 @@ those by Samuel Powell:
 Tested types
 ============
 
-1. POD types (char, int, float, double etc...)
-2. std::string
+1. POD types (char, wchar_t, int, float, double etc...)
+2. std::string, std::wstring
 3. std::vector
 4. std::list
 5. std::array (multidimensional works too)
@@ -43,28 +43,32 @@ POD serialization
 
     static void serialize (std::ofstream out)
     {
-	char a = 42;
-	unsigned short b = 65535;
-	int c = 123456;
-	float d = std::numeric_limits<float>::max();
-	double e = std::numeric_limits<double>::max();
-        std::string f("hello");
+        char           a = 42;
+        unsigned short b = 65535;
+        int            c = 123456;
+        float          d = std::numeric_limits<float>::max();
+        double         e = std::numeric_limits<double>::max();
+        std::string    f("hello");
+        wchar_t        g = L'💩';
+        std::wstring   h(L"wide string 💩");
 
-	out << bits(a) << bits(b) << bits(c) << bits(d);
-        out << bits(e) << bits(f);
+        out << bits(a) << bits(b) << bits(c) << bits(d);
+        out << bits(e) << bits(f) << bits(g) << bits(h);
     }
 
     static void deserialize (std::ifstream in)
     {
-        char a;
-	unsigned short b;
-	int c;
-	float d;
-	double e;
-	std::string f;
+        char           a;
+        unsigned short b;
+        int            c;
+        float          d;
+        double         e;
+        std::string    f;
+        wchar_t        g;
+        std::wstring   h;
 
-	in >> bits(a) >> bits(b) >> bits(c) >> bits(d);
-        in >> bits(e) >> bits(f);
+        in >> bits(a) >> bits(b) >> bits(c) >> bits(d);
+        in >> bits(e) >> bits(f) >> bits(g) >> bits(h);
     }
 </pre>
 
@@ -77,20 +81,20 @@ Container serialization
     static void serialize (std::ofstream out)
     {
         std::initializer_list< std::string > d1 = {"vec-elem1", "vec-elem2"};
-	std::vector< std::string > a(d1);
+        std::vector< std::string > a(d1);
 
-	std::initializer_list< std::string > d2 = {"list-elem1", "list-elem2"};
-	std::list< std::string > b(d2);
+        std::initializer_list< std::string > d2 = {"list-elem1", "list-elem2"};
+        std::list< std::string > b(d2);
 
-	std::array< std::string, 2> c = {"arr-elem1", "arr-elem2"};
+        std::array< std::string, 2> c = {"arr-elem1", "arr-elem2"};
 
         //
         // 2d array
         //
-	std::array< std::array<char, 2>, 3> d;
-	d[0][0] = '0'; d[0][1] = '1';
-	d[1][0] = '2'; d[1][1] = '3';
-	d[2][0] = '4'; d[2][1] = '5';
+        std::array< std::array<char, 2>, 3> d;
+        d[0][0] = '0'; d[0][1] = '1';
+        d[1][0] = '2'; d[1][1] = '3';
+        d[2][0] = '4'; d[2][1] = '5';
 
         //
         // 3d array
@@ -115,10 +119,10 @@ Container serialization
     static void deserialize (std::ifstream in)
     {
         std::string f;
-	std::vector< std::string > a;
-	std::list< std::string > b;
-	std::array< std::string, 2> c;
-	std::array< std::array<char, 2>, 3> d;
+        std::vector< std::string > a;
+        std::list< std::string > b;
+        std::array< std::string, 2> c;
+        std::array< std::array<char, 2>, 3> d;
         std::array< std::array< std::array<char, 2>, 3>, 4> ddd;
 
         in >> bits(a) >> bits(b) >> bits(c) >> bits(dd) >> bits(ddd);
@@ -227,31 +231,31 @@ Serializing a custom template class
     template<class T > class MyPoint
     {
     public:
-	T x {};
-	T y {};
+        T x {};
+        T y {};
 
-	MyPoint (void) : x(0), y(0) {};
+        MyPoint (void) : x(0), y(0) {};
 
-	MyPoint (T x, T y) : x(x), y(y) { }
+        MyPoint (T x, T y) : x(x), y(y) { }
 
-	friend std::ostream& operator<<(std::ostream &out,
-					Bits<const MyPoint & > const my)
-	{
-	    out << bits(my.t.x) << bits(my.t.y);
-	    return (out);
-	}
+        friend std::ostream& operator<<(std::ostream &out,
+                                        Bits<const MyPoint & > const my)
+        {
+            out << bits(my.t.x) << bits(my.t.y);
+            return (out);
+        }
 
-	friend std::istream& operator>>(std::istream &in, Bits<MyPoint &> my)
-	{
-	    in >> bits(my.t.x) >> bits(my.t.y);
-	    return (in);
-	}
+        friend std::istream& operator>>(std::istream &in, Bits<MyPoint &> my)
+        {
+            in >> bits(my.t.x) >> bits(my.t.y);
+            return (in);
+        }
 
-	friend std::ostream& operator << (std::ostream &out, const MyPoint &my)
-	{
-	    out << "(" << my.x << ", " << my.y << ")";
-	    return (out);
-	}
+        friend std::ostream& operator << (std::ostream &out, const MyPoint &my)
+        {
+            out << "(" << my.x << ", " << my.y << ")";
+            return (out);
+        }
     };
 
     typedef MyPoint<int > IntPoint;
@@ -260,20 +264,20 @@ Serializing a custom template class
 
     static void serialize (std::ofstream out)
     {
-	out << bits(IntPoint(1, 2));
-	out << bits(FloatPoint(1.1, 2.2));
-	out << bits(DoublePoint(3.3, 4.4));
+        out << bits(IntPoint(1, 2));
+        out << bits(FloatPoint(1.1, 2.2));
+        out << bits(DoublePoint(3.3, 4.4));
     }
 
     static void deserialize (std::ifstream in)
     {
-	IntPoint a;
-	FloatPoint b;
-	DoublePoint c;
+        IntPoint a;
+        FloatPoint b;
+        DoublePoint c;
 
-	in >> bits(a);
-	in >> bits(b);
-	in >> bits(c);
+        in >> bits(a);
+        in >> bits(b);
+        in >> bits(c);
     }
 </pre>
 

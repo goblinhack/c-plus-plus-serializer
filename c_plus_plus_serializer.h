@@ -91,6 +91,144 @@ std::ostream& operator<<(std::ostream &out, Bits<std::string &> const v)
 }
 
 ////////////////////////////////////////////////////////////////////////////
+// Read/write std::wstring
+////////////////////////////////////////////////////////////////////////////
+static inline std::istream& operator>>(std::istream& in, Bits<std::wstring &> v)
+{
+    my_size_t sz = 0;
+    in >> bits(sz);
+    if (in && sz) {
+        std::vector<wchar_t> tmp(sz);
+        while (sz--) {
+            wchar_t tmp;
+            in >> bits(tmp);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+            std::cout << "read '" << tmp << "'" << std::endl;
+#endif
+            v.t += tmp;
+        }
+    }
+
+    return in;
+}
+
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<const std::wstring &> const v)
+{
+    my_size_t sz = v.t.size();
+    out << bits(sz);
+    for (auto tmp : v.t) {
+        out << bits(tmp);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write const '" << tmp << "'" << std::endl;
+#endif
+    }
+    return out;
+}
+
+static inline
+std::ostream& operator<<(std::ostream &out, Bits<std::wstring &> const v)
+{
+    my_size_t sz = v.t.size();
+    out << bits(sz);
+    for (auto tmp : v.t) {
+        out << bits(tmp);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << tmp << "'" << std::endl;
+#endif
+    }
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Read/write wchar_t
+////////////////////////////////////////////////////////////////////////////
+static inline std::istream& operator>>(std::istream& in, Bits<wchar_t &> v)
+{
+    if (sizeof(wchar_t) == 4) {
+        unsigned char _a, _b, _c, _d;
+        in >> bits(_a);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "read '" << _a << "'" << std::endl;
+#endif
+        in >> bits(_b);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "read '" << _b << "'" << std::endl;
+#endif
+        in >> bits(_c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "read '" << _c << "'" << std::endl;
+#endif
+        in >> bits(_d);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "read '" << _d << "'" << std::endl;
+#endif
+        v.t = (_a << 24) | (_b << 16) | (_c << 8) | _d;
+    } else {
+        static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
+    }
+
+    return in;
+}
+
+static inline std::ostream& operator<<(std::ostream &out, 
+                                       Bits<const wchar_t &> const v)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write const '" << v.t << "'" << std::endl;
+#endif
+    if (sizeof(wchar_t) == 4) {
+        unsigned char c;
+        c = (v.t & (0xff000000)) >> 24; out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x00ff0000)) >> 16; out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x0000ff00)) >> 8;  out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x000000ff)) >> 0;  out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+    } else {
+        static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
+    }
+    return (out);
+}
+
+static inline
+std::ostream& operator<<(std::ostream &out, Bits<wchar_t &> const v)
+{
+    if (sizeof(wchar_t) == 4) {
+        unsigned char c;
+        c = (v.t & (0xff000000)) >> 24; out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x00ff0000)) >> 16; out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x0000ff00)) >> 8;  out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+        c = (v.t & (0x000000ff)) >> 0;  out << bits(c);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "write '" << c << "'" << std::endl;
+#endif
+    } else {
+        static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
+    }
+    return (out);
+}
+
+////////////////////////////////////////////////////////////////////////////
 // Read/write simple container
 ////////////////////////////////////////////////////////////////////////////
 template <
