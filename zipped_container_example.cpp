@@ -5,7 +5,6 @@
 #include <limits>
 #include <sstream>
 #include <iterator>
-#define USE_SIZE_T
 #define DEBUG_C_PLUS_PLUS_SERIALIZER
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
@@ -71,6 +70,9 @@ static void save_zipper_container (const std::string filename)
     //
     // Get the pre compress buffer
     //
+for (auto s : out.str()) {
+    printf("%02X ", s);
+}
     auto src = out.str().c_str();
     out.seekg(0, std::ios::end);
     int srclen = out.tellg();
