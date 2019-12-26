@@ -75,6 +75,7 @@ static void save_zipper_container (const std::string filename)
     int srclen = out.tellg();
     out.seekg(0, std::ios::beg);
 
+std::cout << "len " << tmp.size() << std::endl;
     std::cout << "before compression ";
     hexdump(tmp.c_str(), srclen);
 
