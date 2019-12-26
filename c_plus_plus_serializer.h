@@ -148,22 +148,25 @@ static inline std::istream& operator>>(std::istream& in, Bits<wchar_t &> v)
     if (sizeof(wchar_t) == 4) {
         unsigned char _a, _b, _c, _d;
         in >> bits(_a);
+        in >> bits(_b);
+        in >> bits(_c);
+        in >> bits(_d);
+        v.t = (_a << 24) | (_b << 16) | (_c << 8) | _d;
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "read '" << _a << "'" << std::endl;
-#endif
-        in >> bits(_b);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "read '" << _b << "'" << std::endl;
-#endif
-        in >> bits(_c);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "read '" << _c << "'" << std::endl;
-#endif
-        in >> bits(_d);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
         std::cout << "read '" << _d << "'" << std::endl;
 #endif
-        v.t = (_a << 24) | (_b << 16) | (_c << 8) | _d;
+    } else if (sizeof(wchar_t) == 2) {
+        unsigned char _a, _b;
+        in >> bits(_a);
+        in >> bits(_b);
+        v.t = (_a << 8) | _b;
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+        std::cout << "read '" << _a << "'" << std::endl;
+        std::cout << "read '" << _b << "'" << std::endl;
+#endif
     } else {
         static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
     }
@@ -178,22 +181,24 @@ static inline std::ostream& operator<<(std::ostream &out,
     std::cout << "write const '" << v.t << "'" << std::endl;
 #endif
     if (sizeof(wchar_t) == 4) {
-        unsigned char c;
-        c = (v.t & (0xff000000)) >> 24; out << bits(c);
+        unsigned char _a, _b, _c, _d;
+        _a = (v.t & (0xff000000)) >> 24; out << bits(_a);
+        _b = (v.t & (0x00ff0000)) >> 16; out << bits(_b);
+        _c = (v.t & (0x0000ff00)) >> 8;  out << bits(_c);
+        _d = (v.t & (0x000000ff)) >> 0;  out << bits(_d);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
+        std::cout << "write '" << _a << "'" << std::endl;
+        std::cout << "write '" << _b << "'" << std::endl;
+        std::cout << "write '" << _c << "'" << std::endl;
+        std::cout << "write '" << _d << "'" << std::endl;
 #endif
-        c = (v.t & (0x00ff0000)) >> 16; out << bits(c);
+    } else if (sizeof(wchar_t) == 2) {
+        unsigned char _a, _b;
+        _a = (v.t & (0xff00)) >> 8;  out << bits(_a);
+        _b = (v.t & (0x00ff)) >> 0;  out << bits(_b);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
-#endif
-        c = (v.t & (0x0000ff00)) >> 8;  out << bits(c);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
-#endif
-        c = (v.t & (0x000000ff)) >> 0;  out << bits(c);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
+        std::cout << "write '" << _a << "'" << std::endl;
+        std::cout << "write '" << _b << "'" << std::endl;
 #endif
     } else {
         static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
@@ -204,23 +209,28 @@ static inline std::ostream& operator<<(std::ostream &out,
 static inline
 std::ostream& operator<<(std::ostream &out, Bits<wchar_t &> const v)
 {
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "write const '" << v.t << "'" << std::endl;
+#endif
     if (sizeof(wchar_t) == 4) {
-        unsigned char c;
-        c = (v.t & (0xff000000)) >> 24; out << bits(c);
+        unsigned char _a, _b, _c, _d;
+        _a = (v.t & (0xff000000)) >> 24; out << bits(_a);
+        _b = (v.t & (0x00ff0000)) >> 16; out << bits(_b);
+        _c = (v.t & (0x0000ff00)) >> 8;  out << bits(_c);
+        _d = (v.t & (0x000000ff)) >> 0;  out << bits(_d);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
+        std::cout << "write '" << _a << "'" << std::endl;
+        std::cout << "write '" << _b << "'" << std::endl;
+        std::cout << "write '" << _c << "'" << std::endl;
+        std::cout << "write '" << _d << "'" << std::endl;
 #endif
-        c = (v.t & (0x00ff0000)) >> 16; out << bits(c);
+    } else if (sizeof(wchar_t) == 2) {
+        unsigned char _a, _b;
+        _a = (v.t & (0xff00)) >> 8;  out << bits(_a);
+        _b = (v.t & (0x00ff)) >> 0;  out << bits(_b);
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
-#endif
-        c = (v.t & (0x0000ff00)) >> 8;  out << bits(c);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
-#endif
-        c = (v.t & (0x000000ff)) >> 0;  out << bits(c);
-#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-        std::cout << "write '" << c << "'" << std::endl;
+        std::cout << "write '" << _a << "'" << std::endl;
+        std::cout << "write '" << _b << "'" << std::endl;
 #endif
     } else {
         static_assert(sizeof(wchar_t) <= 4, "wchar_t is greater that 32 bit");
