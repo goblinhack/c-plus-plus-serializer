@@ -38,7 +38,7 @@ Tested types
 POD serialization
 =================
 
-<pre>
+```C++
     #include "c_plus_plus_serializer.h"
 
     static void serialize (std::ofstream out)
@@ -70,12 +70,12 @@ POD serialization
         in >> bits(a) >> bits(b) >> bits(c) >> bits(d);
         in >> bits(e) >> bits(f) >> bits(g) >> bits(h);
     }
-</pre>
+```
 
 Container serialization
 =======================
 
-<pre>
+```C++
     #include "c_plus_plus_serializer.h"
 
     static void serialize (std::ofstream out)
@@ -127,12 +127,12 @@ Container serialization
 
         in >> bits(a) >> bits(b) >> bits(c) >> bits(dd) >> bits(ddd);
     }
-</pre>
+```
 
 Map serialization
 =================
 
-<pre>
+```C++
     static void serialize (std::ofstream out)
     {
         std::map< std::string, std::string > m;
@@ -148,12 +148,12 @@ Map serialization
         std::map< std::string, std::string > m;
         in >> bits(m);
     }
-</pre>
+```
 
 Unordered map serialization
 ===========================
 
-<pre>
+```C++
     static void serialize (std::ofstream out)
     {
         std::unordered_map< std::string, std::string > m;
@@ -169,12 +169,12 @@ Unordered map serialization
         std::unordered_map< std::string, std::string > m;
         in >> bits(m);
     }
-</pre>
+```
 
 std::map< std::string, std::list > example
 ========================================
 
-<pre>
+```C++
     static void serialize (std::ofstream out)
     {
         std::map< std::string, std::list< std::string > > m;
@@ -196,12 +196,12 @@ std::map< std::string, std::list > example
 
         in >> bits(m);
     }
-</pre>
+```
 
 User defined class serialization
 ================================
 
-<pre>
+```C++
     class Custom {
     public:
         int a;
@@ -222,12 +222,12 @@ User defined class serialization
             return (in);
         }
     };
-</pre>
+```
 
 Serializing a custom template class
 ===================================
 
-<pre>
+```C++
     template<class T > class MyPoint
     {
     public:
@@ -279,12 +279,12 @@ Serializing a custom template class
         in >> bits(b);
         in >> bits(c);
     }
-</pre>
+```
 
 User defined class serialization (more complex one, a map of classes)
 =====================================================================
 
-<pre>
+```C++
     class Custom {
     public:
         int a;
@@ -360,12 +360,12 @@ User defined class serialization (more complex one, a map of classes)
         }
         std::cout << "}" << std::endl;
     }
-</pre>
+```
 
 Bitfield serialization (C and C++ style)
 ========================================
 
-<pre>
+```C++
     class BitsetClass {
     public:
         std::bitset<1> a;
@@ -410,11 +410,11 @@ Bitfield serialization (C and C++ style)
             return (in);
         }
     };
-</pre>
+```
 
 Raw memory
 ==========
-<pre>
+```C++
     #include "hexdump.h"
 
     auto elems = 128;
@@ -435,11 +435,11 @@ Raw memory
 
         hexdump(a, elems);
     }
-</pre>
+```
 
 Output:
 
-<pre>
+```C++
     128 bytes:
     0000 00 01 02 03 04 05 06 07  08 09 0a 0b 0c 0d 0e 0f |................|
     0010 10 11 12 13 14 15 16 17  18 19 1a 1b 1c 1d 1e 1f |................|
@@ -449,7 +449,7 @@ Output:
     0050 50 51 52 53 54 55 56 57  58 59 5a 5b 5c 5d 5e 5f |PQRSTUVWXYZ[\]^_|
     0060 60 61 62 63 64 65 66 67  68 69 6a 6b 6c 6d 6e 6f |`abcdefghijklmno|
     0070 70 71 72 73 74 75 76 77  78 79 7a 7b 7c 7d 7e 7f |pqrstuvwxyz{|}~.|
-</pre>
+```
 
 Compression
 ===========
