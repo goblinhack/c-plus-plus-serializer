@@ -14,6 +14,7 @@ static void save_simple (const std::string filename)
     std::string f("hello");
     wchar_t g = L'💩';
     std::wstring h(L"wide string 💩");
+    std::pair<int, std::string> p(42, "life");
 
     std::cout << std::endl;
     std::cout << "write:" <<  std::endl;
@@ -25,11 +26,13 @@ static void save_simple (const std::string filename)
     std::cout << "  f: std::string              " << f << std::endl;
     std::wcout << "  g: wchar_t                  " << g << std::endl;
     std::wcout << "  h: std::wstring             " << h << std::endl;
+    std::cout << "  p: std::pair                " << p.first << " " << p.second << std::endl;
 
     std::cout << std::endl;
 
     out << bits(a) << bits(b) << bits(c) << bits(d);
     out << bits(e) << bits(f) << bits(g) << bits(h);
+    out << bits(p);
 }
 
 static void load_simple (const std::string filename)
@@ -45,9 +48,11 @@ static void load_simple (const std::string filename)
     std::string f;
     wchar_t g;
     std::wstring h;
+    std::pair<int, std::string> p;
 
     in >> bits(a) >> bits(b) >> bits(c) >> bits(d);
     in >> bits(e) >> bits(f) >> bits(g) >> bits(h);
+    in >> bits(p);
 
     std::cout << std::endl;
     std::cout << "read:" <<  std::endl;
@@ -59,6 +64,7 @@ static void load_simple (const std::string filename)
     std::cout << "  f: std::string              " << f << std::endl;
     std::wcout << "  g: wchar_t                  " << g << std::endl;
     std::wcout << "  h: std::wstring             " << h << std::endl;
+    std::cout << "  p: std::pair                " << p.first << " " << p.second << std::endl;
     std::cout << std::endl;
 }
 

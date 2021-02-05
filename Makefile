@@ -3,11 +3,11 @@ COMPILER_FLAGS=-Werror -g -ggdb3 -O2  # AUTOGEN
 CLANG_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
 GCC_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
 GXX_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
-COMPILER_WARNINGS=$(CLANG_COMPILER_WARNINGS) # AUTOGEN
-COMPILER_WARNINGS=$(GXX_COMPILER_WARNINGS) # AUTOGEN
 COMPILER_WARNINGS=$(GCC_COMPILER_WARNINGS) # AUTOGEN
-# CC=clang # AUTOGEN
-CC=gcc # AUTOGEN
+COMPILER_WARNINGS=$(GXX_COMPILER_WARNINGS) # AUTOGEN
+COMPILER_WARNINGS=$(CLANG_COMPILER_WARNINGS) # AUTOGEN
+CC=clang # AUTOGEN
+# CC=gcc # AUTOGEN
 # CC=cc # AUTOGEN
 # CC=g++ # AUTOGEN
     
@@ -67,13 +67,11 @@ all: $(TARGET)
 .o/bitfields_in_class_example.o: c_plus_plus_serializer.h
 .o/container_example.o: c_plus_plus_serializer.h
 .o/custom_class_example.o: c_plus_plus_serializer.h
-.o/hexdump.o: /usr/include/string.h
 .o/map_custom_class_example.o: c_plus_plus_serializer.h
 .o/map_example.o: c_plus_plus_serializer.h
 .o/map_string_to_list_of_strings_example.o: c_plus_plus_serializer.h
-.o/quicklz.o: quicklz.h /usr/include/string.h
+.o/quicklz.o: quicklz.h
 .o/raw_memory.o: c_plus_plus_serializer.h hexdump.h
 .o/template_class_example.o: c_plus_plus_serializer.h
 .o/unordered_map_example.o: c_plus_plus_serializer.h
 .o/zipped_container_example.o: c_plus_plus_serializer.h hexdump.h quicklz.h
-.o/zipped_container_example.o: /usr/include/string.h
