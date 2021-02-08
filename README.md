@@ -25,15 +25,16 @@ those by Samuel Powell:
 Tested types
 ============
 
-1. POD types (char, wchar_t, int, float, double etc...)
-2. std::string, std::wstring
-3. std::vector
-4. std::list
-5. std::array (multidimensional works too)
-6. std::map
-7. std::unordered_map
-8. custom class
-9. nested types e.g. std::map< std::string, std::list>
+- POD types (char, wchar_t, int, float, double etc...)
+- std::string, std::wstring
+- std::vector
+- std::list
+- std::array (multidimensional works too)
+- std::map
+- std::unordered_map
+- custom class
+- nested types e.g. std::map< std::string, std::list>
+- std::pair
 
 POD serialization
 =================
