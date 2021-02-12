@@ -523,4 +523,16 @@ operator>>(std::istream& in, Bits<std::pair<K, V> &> wrapped)
     in >> bits(wrapped.t.second);
     return in;
 }
+
+template <typename K, typename V>
+static inline std::istream&
+operator>>(std::istream& in, Bits<const std::pair<K, V> &> wrapped)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+    std::cout << "const write pair<K,V>" std::endl;
+#endif
+    in >> bits(wrapped.t.first);
+    in >> bits(wrapped.t.second);
+    return in;
+}
 #endif /* C_PLUS_PLUS_SERIALIZER */
