@@ -98,7 +98,6 @@ static inline std::istream& operator>>(std::istream& in, Bits<std::wstring &> v)
     my_size_t sz = 0;
     in >> bits(sz);
     if (in && sz) {
-        std::vector<wchar_t> tmp(sz);
         while (sz--) {
             wchar_t tmp;
             in >> bits(tmp);
