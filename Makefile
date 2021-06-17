@@ -67,11 +67,13 @@ all: $(TARGET)
 .o/bitfields_in_class_example.o: c_plus_plus_serializer.h
 .o/container_example.o: c_plus_plus_serializer.h
 .o/custom_class_example.o: c_plus_plus_serializer.h
+.o/hexdump.o: /usr/include/string.h
 .o/map_custom_class_example.o: c_plus_plus_serializer.h
 .o/map_example.o: c_plus_plus_serializer.h
 .o/map_string_to_list_of_strings_example.o: c_plus_plus_serializer.h
-.o/quicklz.o: quicklz.h
+.o/quicklz.o: quicklz.h /usr/include/string.h
 .o/raw_memory.o: c_plus_plus_serializer.h hexdump.h
 .o/template_class_example.o: c_plus_plus_serializer.h
 .o/unordered_map_example.o: c_plus_plus_serializer.h
 .o/zipped_container_example.o: c_plus_plus_serializer.h hexdump.h quicklz.h
+.o/zipped_container_example.o: /usr/include/string.h
