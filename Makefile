@@ -38,6 +38,7 @@ EXTRA_CFLAGS=-std=c++11
 #EXTRA_CFLAGS+=-DUSE_SIZE_T
 
 $(OBJDIR)/%.o: %.cpp
+	$(shell echo clang-format -i $<)
 	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
 	@$(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
 
