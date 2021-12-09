@@ -219,8 +219,8 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
                                 qlz_state_compress *state) {
   const unsigned char *last_byte       = source + size - 1;
   const unsigned char *src             = source;
-  unsigned char *      cword_ptr       = destination;
-  unsigned char *      dst             = destination + CWORD_LEN;
+  unsigned char       *cword_ptr       = destination;
+  unsigned char       *dst             = destination + CWORD_LEN;
   ui32                 cword_val       = 1U << 31;
   const unsigned char *last_matchstart = last_byte - UNCONDITIONAL_MATCHLEN - UNCOMPRESSED_END;
   ui32                 fetch           = 0;
@@ -477,11 +477,11 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
 static size_t qlz_decompress_core(const unsigned char *source, unsigned char *destination, size_t size,
                                   qlz_state_decompress *state, const unsigned char *history) {
   const unsigned char *src                   = source + qlz_size_header((const char *) source);
-  unsigned char *      dst                   = destination;
+  unsigned char       *dst                   = destination;
   const unsigned char *last_destination_byte = destination + size - 1;
   ui32                 cword_val             = 1;
   const unsigned char *last_matchstart       = last_destination_byte - UNCONDITIONAL_MATCHLEN - UNCOMPRESSED_END;
-  unsigned char *      last_hashed           = destination - 1;
+  unsigned char       *last_hashed           = destination - 1;
   const unsigned char *last_source_byte      = source + qlz_size_compressed((const char *) source) - 1;
   static const ui32    bitlut[ 16 ]          = {4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0};
 
