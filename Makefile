@@ -1,8 +1,8 @@
-COMPILER_FLAGS=-Werror -g -ggdb3 -O2  # AUTOGEN
+COMPILER_FLAGS=-Werror -g -ggdb3 -O2 -I . -I examples # AUTOGEN
     
-CLANG_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
-GCC_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
-GXX_COMPILER_WARNINGS=-Wall -Wall # AUTOGEN
+CLANG_COMPILER_WARNINGS=-Wall # AUTOGEN
+GCC_COMPILER_WARNINGS=-Wall # AUTOGEN
+GXX_COMPILER_WARNINGS=-Wall # AUTOGEN
 COMPILER_WARNINGS=$(GCC_COMPILER_WARNINGS) # AUTOGEN
 COMPILER_WARNINGS=$(GXX_COMPILER_WARNINGS) # AUTOGEN
 COMPILER_WARNINGS=$(CLANG_COMPILER_WARNINGS) # AUTOGEN
@@ -37,7 +37,7 @@ EXTRA_CFLAGS=-std=c++11
 #EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER
 #EXTRA_CFLAGS+=-DUSE_SIZE_T
 
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: examples/%.cpp
 	$(shell echo clang-format -i $<)
 	@echo $(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
 	@$(CXX) $(EXTRA_CFLAGS) $(CFLAGS) -c -o $@ $<
@@ -63,18 +63,3 @@ clobber: clean
 
 all: $(TARGET) 
 # DO NOT DELETE
-
-.o/basic_example.o: c_plus_plus_serializer.h
-.o/bitfields_in_class_example.o: c_plus_plus_serializer.h
-.o/container_example.o: c_plus_plus_serializer.h
-.o/custom_class_example.o: c_plus_plus_serializer.h
-.o/hexdump.o: /usr/include/string.h
-.o/map_custom_class_example.o: c_plus_plus_serializer.h
-.o/map_example.o: c_plus_plus_serializer.h
-.o/map_string_to_list_of_strings_example.o: c_plus_plus_serializer.h
-.o/quicklz.o: quicklz.h /usr/include/string.h
-.o/raw_memory.o: c_plus_plus_serializer.h hexdump.h
-.o/template_class_example.o: c_plus_plus_serializer.h
-.o/unordered_map_example.o: c_plus_plus_serializer.h
-.o/zipped_container_example.o: c_plus_plus_serializer.h hexdump.h quicklz.h
-.o/zipped_container_example.o: /usr/include/string.h
