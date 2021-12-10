@@ -1,7 +1,8 @@
-#include <bitset>
 #include "c_plus_plus_serializer.h"
+#include <bitset>
 
-class BitsetClass {
+class BitsetClass
+{
 public:
   std::bitset< 1 > a;
   std::bitset< 2 > b;
@@ -11,13 +12,15 @@ public:
   unsigned int e : 2;
   unsigned int f : 3;
 
-  BitsetClass(void) {
+  BitsetClass(void)
+  {
     d = 0;
     e = 0;
     f = 0;
   }
 
-  friend std::ostream &operator<<(std::ostream &out, Bits< const class BitsetClass & > const my) {
+  friend std::ostream &operator<<(std::ostream &out, Bits< const class BitsetClass & > const my)
+  {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write custom bitset class" << std::endl;
 #endif
@@ -31,7 +34,8 @@ public:
     return (out);
   }
 
-  friend std::istream &operator>>(std::istream &in, Bits< class BitsetClass & > my) {
+  friend std::istream &operator>>(std::istream &in, Bits< class BitsetClass & > my)
+  {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read custom bitset class" << std::endl;
 #endif
@@ -52,7 +56,8 @@ public:
     return (in);
   }
 
-  friend std::ostream &operator<<(std::ostream &out, const class BitsetClass &my) {
+  friend std::ostream &operator<<(std::ostream &out, const class BitsetClass &my)
+  {
     out << "a(1bit):" << my.a << std::endl;
     out << "b(2bit):" << my.b << std::endl;
     out << "c(3bit):" << my.c << std::endl;
@@ -64,21 +69,24 @@ public:
   }
 };
 
-static void save(const std::string filename, const class BitsetClass &c) {
+static void save(const std::string filename, const class BitsetClass &c)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
   out << bits(c);
 }
 
-static void load(const std::string filename, class BitsetClass &c) {
+static void load(const std::string filename, class BitsetClass &c)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
   in >> bits(c);
 }
 
-static void save_custom_bitset_class_example(void) {
+static void save_custom_bitset_class_example(void)
+{
   auto c = BitsetClass();
 
   c.a = 1;
@@ -91,7 +99,8 @@ static void save_custom_bitset_class_example(void) {
   save(std::string("custom_bitset_class.bin"), c);
 }
 
-static void load_custom_bitset_class_example(void) {
+static void load_custom_bitset_class_example(void)
+{
   auto c = BitsetClass();
 
   load(std::string("custom_bitset_class.bin"), c);
@@ -100,7 +109,8 @@ static void load_custom_bitset_class_example(void) {
   std::cout << std::endl;
 }
 
-void custom_bitset_class_example(void) {
+void custom_bitset_class_example(void)
+{
   std::cout << "custom_bitset_class_example" << std::endl;
   std::cout << "===========================" << std::endl;
   save_custom_bitset_class_example();

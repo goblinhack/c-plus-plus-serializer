@@ -1,9 +1,10 @@
-#include <list>
-#include <vector>
-#include <map>
 #include "c_plus_plus_serializer.h"
+#include <list>
+#include <map>
+#include <vector>
 
-template < class T > class MyPoint {
+template < class T > class MyPoint
+{
 public:
   T x {};
   T y {};
@@ -12,17 +13,20 @@ public:
 
   MyPoint(T x, T y) : x(x), y(y) {}
 
-  friend std::ostream &operator<<(std::ostream &out, Bits< const MyPoint & > const my) {
+  friend std::ostream &operator<<(std::ostream &out, Bits< const MyPoint & > const my)
+  {
     out << bits(my.t.x) << bits(my.t.y);
     return (out);
   }
 
-  friend std::istream &operator>>(std::istream &in, Bits< MyPoint & > my) {
+  friend std::istream &operator>>(std::istream &in, Bits< MyPoint & > my)
+  {
     in >> bits(my.t.x) >> bits(my.t.y);
     return (in);
   }
 
-  friend std::ostream &operator<<(std::ostream &out, const MyPoint &my) {
+  friend std::ostream &operator<<(std::ostream &out, const MyPoint &my)
+  {
     out << "(" << my.x << ", " << my.y << ")";
     return (out);
   }
@@ -32,7 +36,8 @@ typedef MyPoint< int >    IntPoint;
 typedef MyPoint< float >  FloatPoint;
 typedef MyPoint< double > DoublePoint;
 
-static void save_template_class_example(void) {
+static void save_template_class_example(void)
+{
   auto filename = ("template_class.bin");
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
@@ -42,7 +47,8 @@ static void save_template_class_example(void) {
   out << bits(DoublePoint(3.3, 4.4));
 }
 
-static void load_template_class_example(void) {
+static void load_template_class_example(void)
+{
   auto filename = ("template_class.bin");
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
@@ -62,7 +68,8 @@ static void load_template_class_example(void) {
   std::cout << std::endl;
 }
 
-void template_class_example(void) {
+void template_class_example(void)
+{
   std::cout << "template_class_example" << std::endl;
   std::cout << "======================" << std::endl;
   save_template_class_example();

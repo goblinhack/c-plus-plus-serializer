@@ -1,7 +1,8 @@
 #include "c_plus_plus_serializer.h"
 #include <limits>
 
-static void save_simple(const std::string filename) {
+static void save_simple(const std::string filename)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
@@ -34,7 +35,8 @@ static void save_simple(const std::string filename) {
   out << bits(p);
 }
 
-static void load_simple(const std::string filename) {
+static void load_simple(const std::string filename)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
@@ -66,7 +68,8 @@ static void load_simple(const std::string filename) {
   std::cout << std::endl;
 }
 
-void basic_example(void) {
+void basic_example(void)
+{
   //
   // Need this to get the poop emoji printed! :)
   //

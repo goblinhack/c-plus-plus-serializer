@@ -1,15 +1,17 @@
-#include <list>
-#include <vector>
-#include <map>
 #include "c_plus_plus_serializer.h"
+#include <list>
+#include <map>
+#include <vector>
 
-class Custom {
+class Custom
+{
 public:
   int                        a;
   std::string                b;
   std::vector< std::string > c;
 
-  friend std::ostream &operator<<(std::ostream &out, Bits< const class Custom & > const my) {
+  friend std::ostream &operator<<(std::ostream &out, Bits< const class Custom & > const my)
+  {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "write custom class" << std::endl;
 #endif
@@ -17,7 +19,8 @@ public:
     return (out);
   }
 
-  friend std::istream &operator>>(std::istream &in, Bits< class Custom & > my) {
+  friend std::istream &operator>>(std::istream &in, Bits< class Custom & > my)
+  {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
     std::cout << "read custom class" << std::endl;
 #endif
@@ -25,7 +28,8 @@ public:
     return (in);
   }
 
-  friend std::ostream &operator<<(std::ostream &out, class Custom &my) {
+  friend std::ostream &operator<<(std::ostream &out, class Custom &my)
+  {
     out << "a:" << my.a << " b:" << my.b;
 
     out << " c:[" << my.c.size() << " elems]:";
@@ -38,21 +42,24 @@ public:
   }
 };
 
-static void save(const std::string filename, const class Custom &c) {
+static void save(const std::string filename, const class Custom &c)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
   out << bits(c);
 }
 
-static void load(const std::string filename, class Custom &c) {
+static void load(const std::string filename, class Custom &c)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
   in >> bits(c);
 }
 
-static void save_custom_class_example(void) {
+static void save_custom_class_example(void)
+{
   auto c = Custom();
 
   c.a = 1;
@@ -65,7 +72,8 @@ static void save_custom_class_example(void) {
   save(std::string("custom_class.bin"), c);
 }
 
-static void load_custom_class_example(void) {
+static void load_custom_class_example(void)
+{
   auto c = Custom();
 
   load(std::string("custom_class.bin"), c);
@@ -74,7 +82,8 @@ static void load_custom_class_example(void) {
   std::cout << std::endl;
 }
 
-void custom_class_example(void) {
+void custom_class_example(void)
+{
   std::cout << "custom_class_example" << std::endl;
   std::cout << "====================" << std::endl;
   save_custom_class_example();

@@ -62,4 +62,7 @@ clobber: clean
 	mkdir -p $(OBJDIR)
 
 all: $(TARGET) 
+
+format:
+	git diff -U0 HEAD^ | clang-format-diff -i -p1
 # DO NOT DELETE

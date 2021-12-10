@@ -15,7 +15,7 @@
 #error quicklz.c and quicklz.h have different versions
 #endif
 
-#if (defined(__X86__) || defined(__i386__) || defined(i386) || defined(_M_IX86) || defined(__386__) ||                 \
+#if (defined(__X86__) || defined(__i386__) || defined(i386) || defined(_M_IX86) || defined(__386__) ||               \
      defined(__x86_64__) || defined(_M_X64))
 #define X86X64
 #endif
@@ -33,7 +33,8 @@
 #define CAST
 #endif
 
-int qlz_get_setting(int setting) {
+int qlz_get_setting(int setting)
+{
   switch (setting) {
     case 0 : return QLZ_COMPRESSION_LEVEL;
     case 1 : return sizeof(qlz_state_compress);
@@ -52,14 +53,16 @@ int qlz_get_setting(int setting) {
 }
 
 #if QLZ_COMPRESSION_LEVEL == 1
-static int same(const unsigned char *src, size_t n) {
+static int same(const unsigned char *src, size_t n)
+{
   while (n > 0 && *(src + n) == *src)
     n--;
   return n == 0 ? 1 : 0;
 }
 #endif
 
-static void reset_table_compress(qlz_state_compress *state) {
+static void reset_table_compress(qlz_state_compress *state)
+{
   int i;
   for (i = 0; i < QLZ_HASH_VALUES; i++) {
 #if QLZ_COMPRESSION_LEVEL == 1
@@ -70,7 +73,8 @@ static void reset_table_compress(qlz_state_compress *state) {
   }
 }
 
-static void reset_table_decompress(qlz_state_decompress *state) {
+static void reset_table_decompress(qlz_state_decompress *state)
+{
   int i;
   (void) state;
   (void) i;
@@ -81,7 +85,8 @@ static void reset_table_decompress(qlz_state_decompress *state) {
 #endif
 }
 
-static __inline ui32 hash_func(ui32 i) {
+static __inline ui32 hash_func(ui32 i)
+{
 #if QLZ_COMPRESSION_LEVEL == 2
   return ((i >> 9) ^ (i >> 13) ^ i) & (QLZ_HASH_VALUES - 1);
 #else
@@ -89,7 +94,8 @@ static __inline ui32 hash_func(ui32 i) {
 #endif
 }
 
-static __inline ui32 fast_read(void const *src, ui32 bytes) {
+static __inline ui32 fast_read(void const *src, ui32 bytes)
+{
 #ifndef X86X64
   unsigned char *p = (unsigned char *) src;
   switch (bytes) {
@@ -107,14 +113,16 @@ static __inline ui32 fast_read(void const *src, ui32 bytes) {
 #endif
 }
 
-static __inline ui32 hashat(const unsigned char *src) {
+static __inline ui32 hashat(const unsigned char *src)
+{
   ui32 fetch, hash;
   fetch = fast_read(src, 3);
   hash  = hash_func(fetch);
   return hash;
 }
 
-static __inline void fast_write(ui32 f, void *dst, size_t bytes) {
+static __inline void fast_write(ui32 f, void *dst, size_t bytes)
+{
 #ifndef X86X64
   unsigned char *p = (unsigned char *) dst;
 
@@ -146,7 +154,8 @@ static __inline void fast_write(ui32 f, void *dst, size_t bytes) {
 #endif
 }
 
-size_t qlz_size_decompressed(const char *source) {
+size_t qlz_size_decompressed(const char *source)
+{
   ui32 n, r;
   n = (((*source) & 2) == 2) ? 4 : 1;
   r = fast_read(source + 1 + n, n);
@@ -154,7 +163,8 @@ size_t qlz_size_decompressed(const char *source) {
   return r;
 }
 
-size_t qlz_size_compressed(const char *source) {
+size_t qlz_size_compressed(const char *source)
+{
   ui32 n, r;
   n = (((*source) & 2) == 2) ? 4 : 1;
   r = fast_read(source + 1, n);
@@ -162,12 +172,14 @@ size_t qlz_size_compressed(const char *source) {
   return r;
 }
 
-size_t qlz_size_header(const char *source) {
+size_t qlz_size_header(const char *source)
+{
   size_t n = 2 * ((((*source) & 2) == 2) ? 4 : 1) + 1;
   return n;
 }
 
-static __inline void memcpy_up(unsigned char *dst, const unsigned char *src, ui32 n) {
+static __inline void memcpy_up(unsigned char *dst, const unsigned char *src, ui32 n)
+{
   // Caution if modifying memcpy_up! Overlap of dst and src must be special handled.
 #ifndef X86X64
   unsigned char *end = dst + n;
@@ -186,7 +198,8 @@ static __inline void memcpy_up(unsigned char *dst, const unsigned char *src, ui3
 }
 
 #if QLZ_COMPRESSION_LEVEL != 3
-static __inline void update_hash(qlz_state_decompress *state, const unsigned char *s) {
+static __inline void update_hash(qlz_state_decompress *state, const unsigned char *s)
+{
 #if QLZ_COMPRESSION_LEVEL == 1
   ui32 hash;
   hash                        = hashat(s);
@@ -207,7 +220,8 @@ static __inline void update_hash(qlz_state_decompress *state, const unsigned cha
 #endif
 
 #if QLZ_COMPRESSION_LEVEL <= 2
-static void update_hash_upto(qlz_state_decompress *state, unsigned char **lh, const unsigned char *max) {
+static void update_hash_upto(qlz_state_decompress *state, unsigned char **lh, const unsigned char *max)
+{
   while (*lh < max) {
     (*lh)++;
     update_hash(state, *lh);
@@ -216,7 +230,8 @@ static void update_hash_upto(qlz_state_decompress *state, unsigned char **lh, co
 #endif
 
 static size_t qlz_compress_core(const unsigned char *source, unsigned char *destination, size_t size,
-                                qlz_state_compress *state) {
+                                qlz_state_compress *state)
+{
   const unsigned char *last_byte       = source + size - 1;
   const unsigned char *src             = source;
   unsigned char       *cword_ptr       = destination;
@@ -343,7 +358,8 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
 #if QLZ_COMPRESSION_LEVEL == 3
         if (((fast_read(o, 3) ^ fetch) & 0xffffff) == 0 && o < src - MINOFFSET)
 #elif QLZ_COMPRESSION_LEVEL == 2
-        if (*(src + matchlen) == *(o + matchlen) && ((fast_read(o, 3) ^ fetch) & 0xffffff) == 0 && o < src - MINOFFSET)
+        if (*(src + matchlen) == *(o + matchlen) && ((fast_read(o, 3) ^ fetch) & 0xffffff) == 0 &&
+            o < src - MINOFFSET)
 #endif
         {
           m = 3;
@@ -475,7 +491,8 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
 }
 
 static size_t qlz_decompress_core(const unsigned char *source, unsigned char *destination, size_t size,
-                                  qlz_state_decompress *state, const unsigned char *history) {
+                                  qlz_state_decompress *state, const unsigned char *history)
+{
   const unsigned char *src                   = source + qlz_size_header((const char *) source);
   unsigned char       *dst                   = destination;
   const unsigned char *last_destination_byte = destination + size - 1;
@@ -625,7 +642,8 @@ static size_t qlz_decompress_core(const unsigned char *source, unsigned char *de
   }
 }
 
-size_t qlz_compress(const void *source, char *destination, size_t size, qlz_state_compress *state) {
+size_t qlz_compress(const void *source, char *destination, size_t size, qlz_state_compress *state)
+{
   size_t r;
   ui32   compressed;
   size_t base;
@@ -697,7 +715,8 @@ size_t qlz_compress(const void *source, char *destination, size_t size, qlz_stat
   return r;
 }
 
-size_t qlz_decompress(const char *source, void *destination, qlz_state_decompress *state) {
+size_t qlz_decompress(const char *source, void *destination, qlz_state_decompress *state)
+{
   size_t dsiz = qlz_size_decompressed(source);
 
 #if QLZ_STREAMING_BUFFER > 0

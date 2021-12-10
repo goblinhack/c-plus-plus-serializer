@@ -1,11 +1,12 @@
-#include <list>
-#include <vector>
-#include <array>
-#include <map>
-#include <limits>
 #include "c_plus_plus_serializer.h"
+#include <array>
+#include <limits>
+#include <list>
+#include <map>
+#include <vector>
 
-static void save_container(const std::string filename) {
+static void save_container(const std::string filename)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
@@ -64,7 +65,8 @@ static void save_container(const std::string filename) {
   out << bits(a) << bits(b) << bits(c) << bits(dd) << bits(ddd);
 }
 
-static void load_container(const std::string filename) {
+static void load_container(const std::string filename)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
@@ -114,7 +116,8 @@ static void load_container(const std::string filename) {
   std::cout << std::endl;
 }
 
-void container_example(void) {
+void container_example(void)
+{
   std::cout << "container_example" << std::endl;
   std::cout << "=================" << std::endl;
   save_container(std::string("container_example.bin"));

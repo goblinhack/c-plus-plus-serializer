@@ -1,9 +1,10 @@
-#include <list>
-#include <vector>
-#include <unordered_map>
 #include "c_plus_plus_serializer.h"
+#include <list>
+#include <unordered_map>
+#include <vector>
 
-static void save_unordered_map_key_string_value_string(const std::string filename) {
+static void save_unordered_map_key_string_value_string(const std::string filename)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
@@ -17,7 +18,8 @@ static void save_unordered_map_key_string_value_string(const std::string filenam
   out << bits(m);
 }
 
-static void load_unordered_map_key_string_value_string(const std::string filename) {
+static void load_unordered_map_key_string_value_string(const std::string filename)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
@@ -34,7 +36,8 @@ static void load_unordered_map_key_string_value_string(const std::string filenam
   std::cout << std::endl;
 }
 
-void unordered_map_example(void) {
+void unordered_map_example(void)
+{
   std::cout << "unordered_map key string, value string" << std::endl;
   std::cout << "======================================" << std::endl;
   save_unordered_map_key_string_value_string(std::string("unordered_map_of_strings.bin"));

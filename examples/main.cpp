@@ -1,5 +1,6 @@
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   extern void basic_example(void);
   basic_example();
 

@@ -1,9 +1,10 @@
-#include <list>
-#include <vector>
-#include <map>
 #include "c_plus_plus_serializer.h"
+#include <list>
+#include <map>
+#include <vector>
 
-static void save_map_key_string_value_string(const std::string filename) {
+static void save_map_key_string_value_string(const std::string filename)
+{
   std::cout << "save to " << filename << std::endl;
   std::ofstream out(filename, std::ios::binary);
 
@@ -17,7 +18,8 @@ static void save_map_key_string_value_string(const std::string filename) {
   out << bits(m);
 }
 
-static void load_map_key_string_value_string(const std::string filename) {
+static void load_map_key_string_value_string(const std::string filename)
+{
   std::cout << "read from " << filename << std::endl;
   std::ifstream in(filename);
 
@@ -34,7 +36,8 @@ static void load_map_key_string_value_string(const std::string filename) {
   std::cout << std::endl;
 }
 
-void map_example(void) {
+void map_example(void)
+{
   std::cout << "map key string, value string" << std::endl;
   std::cout << "============================" << std::endl;
   save_map_key_string_value_string(std::string("map_of_strings.bin"));

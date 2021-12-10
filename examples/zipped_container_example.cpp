@@ -1,15 +1,16 @@
-#include <list>
-#include <vector>
-#include <array>
-#include <map>
-#include <limits>
-#include <sstream>
-#include <iterator>
 #include "c_plus_plus_serializer.h"
 #include "hexdump.h"
 #include "quicklz.h"
+#include <array>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <sstream>
+#include <vector>
 
-static std::vector< char > read_binary_file(const std::string filename) {
+static std::vector< char > read_binary_file(const std::string filename)
+{
   // binary mode is only for switching off newline translation
   std::ifstream file(filename, std::ios::binary);
   file.unsetf(std::ios::skipws);
@@ -24,7 +25,8 @@ static std::vector< char > read_binary_file(const std::string filename) {
   return (vec);
 }
 
-static void save_zipper_container(const std::string filename) {
+static void save_zipper_container(const std::string filename)
+{
   std::cout << "save to " << filename << std::endl;
   std::stringstream out(std::ios::in | std::ios::out | std::ios::binary);
 
@@ -119,7 +121,8 @@ static void save_zipper_container(const std::string filename) {
   delete state_compress;
 }
 
-static void load_zipper_container(const std::string filename) {
+static void load_zipper_container(const std::string filename)
+{
   //
   // Read to a vector and then copy to a C buffer for qlz to use
   //
@@ -201,7 +204,8 @@ static void load_zipper_container(const std::string filename) {
   delete[] dst;
 }
 
-void zipper_container_example(void) {
+void zipper_container_example(void)
+{
   std::cout << "zipper_container_example" << std::endl;
   std::cout << "========================" << std::endl;
   save_zipper_container(std::string("zipper_container_example.bin"));
