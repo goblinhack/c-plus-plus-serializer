@@ -1,5 +1,5 @@
-#!/bin/sh
-# 
+#!/bin/bash
+#
 # Copyright (C) 2014 Neil McGill
 #
 # This software is free software; you can redistribute it and/or
@@ -77,18 +77,12 @@ if [[ $OPT_GCC = "yes" ]]; then
     echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
     echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
     echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-    echo "# CC=clang++ # AUTOGEN" >> .Makefile
-    echo "CC=gcc # AUTOGEN" >> .Makefile
-    echo "# CC=cc # AUTOGEN" >> .Makefile
-    echo "# CC=g++ # AUTOGEN" >> .Makefile
-elif [[ $OPT_CLANG = "clang" ]]; then
+    echo "CXX=g++ # AUTOGEN" >> .Makefile
+elif [[ $OPT_CLANG = "yes" ]]; then
     echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
     echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
     echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-    echo "CC=clang++ # AUTOGEN" >> .Makefile
-    echo "# CC=gcc # AUTOGEN" >> .Makefile
-    echo "# CC=cc # AUTOGEN" >> .Makefile
-    echo "# CC=g++ # AUTOGEN" >> .Makefile
+    echo "CXX=clang++ # AUTOGEN" >> .Makefile
 else
     `clang++ --version >/dev/null 2>/dev/null`
     if [ $? -eq 0 ]
@@ -96,10 +90,7 @@ else
         echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
         echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
         echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-        echo "CC=clang++ # AUTOGEN" >> .Makefile
-        echo "# CC=gcc # AUTOGEN" >> .Makefile
-        echo "# CC=cc # AUTOGEN" >> .Makefile
-        echo "# CC=g++ # AUTOGEN" >> .Makefile
+        echo "CXX=clang++ # AUTOGEN" >> .Makefile
     else
         `gcc --version >/dev/null 2>/dev/null`
         if [ $? -eq 0 ]
@@ -107,10 +98,10 @@ else
             echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
             echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
             echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-            echo "# CC=clang++ # AUTOGEN" >> .Makefile
-            echo "CC=gcc # AUTOGEN" >> .Makefile
-            echo "# CC=cc # AUTOGEN" >> .Makefile
-            echo "# CC=g++ # AUTOGEN" >> .Makefile
+            echo "# CXX=clang++ # AUTOGEN" >> .Makefile
+            echo "CXX=gcc # AUTOGEN" >> .Makefile
+            echo "# CXX=cc # AUTOGEN" >> .Makefile
+            echo "# CXX=g++ # AUTOGEN" >> .Makefile
         else
             `g++ --version >/dev/null 2>/dev/null`
             if [ $? -eq 0 ]
@@ -118,18 +109,18 @@ else
                 echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
                 echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
                 echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-                echo "# CC=clang++ # AUTOGEN" >> .Makefile
-                echo "# CC=gcc # AUTOGEN" >> .Makefile
-                echo "# CC=cc # AUTOGEN" >> .Makefile
-                echo "CC=g++ # AUTOGEN" >> .Makefile
+                echo "# CXX=clang++ # AUTOGEN" >> .Makefile
+                echo "# CXX=gcc # AUTOGEN" >> .Makefile
+                echo "# CXX=cc # AUTOGEN" >> .Makefile
+                echo "CXX=g++ # AUTOGEN" >> .Makefile
             else
                 echo "COMPILER_WARNINGS=\$(CLANG_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
                 echo "COMPILER_WARNINGS=\$(GXX_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
                 echo "COMPILER_WARNINGS=\$(GCC_COMPILER_WARNINGS) # AUTOGEN" >> .Makefile
-                echo "# CC=clang++ # AUTOGEN" >> .Makefile
-                echo "# CC=gcc # AUTOGEN" >> .Makefile
-                echo "# CC=cc # AUTOGEN" >> .Makefile
-                echo "CC=g++ # AUTOGEN" >> .Makefile
+                echo "# CXX=clang++ # AUTOGEN" >> .Makefile
+                echo "# CXX=gcc # AUTOGEN" >> .Makefile
+                echo "# CXX=cc # AUTOGEN" >> .Makefile
+                echo "CXX=g++ # AUTOGEN" >> .Makefile
             fi
         fi
     fi
