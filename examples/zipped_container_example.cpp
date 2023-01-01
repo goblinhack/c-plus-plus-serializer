@@ -118,7 +118,7 @@ static void save_zipper_container(const std::string filename)
   fwrite(dst, dstlen, 1, ofile);
   fclose(ofile);
   delete[] dst;
-  delete state_compress;
+  delete[] state_compress;
 }
 
 static void load_zipper_container(const std::string filename)
@@ -197,7 +197,7 @@ static void load_zipper_container(const std::string filename)
   }
   std::cout << std::endl;
 
-  delete state_decompress;
+  delete[] state_decompress;
 #ifdef MAKE_COPY
   delete[] src;
 #endif
