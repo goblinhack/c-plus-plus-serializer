@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
   extern void set_example(void);
   set_example();
 
+  extern void multiset_example(void);
+  multiset_example();
+
   extern void custom_bitset_class_example();
   custom_bitset_class_example();
 

@@ -1,22 +1,23 @@
 NAME=c_plus_plus_serializer
 OBJDIR=.o
 
-TARGET_OBJECTS=					      \
-    $(OBJDIR)/main.o 				      \
-    $(OBJDIR)/hexdump.o 		              \
-    $(OBJDIR)/basic_example.o 			      \
-    $(OBJDIR)/raw_memory.o 			      \
-    $(OBJDIR)/container_example.o 		      \
-    $(OBJDIR)/map_example.o 			      \
-    $(OBJDIR)/set_example.o 			      \
-    $(OBJDIR)/unordered_map_example.o 		      \
+TARGET_OBJECTS=\
+    $(OBJDIR)/main.o \
+    $(OBJDIR)/hexdump.o \
+    $(OBJDIR)/basic_example.o \
+    $(OBJDIR)/raw_memory.o \
+    $(OBJDIR)/container_example.o \
+    $(OBJDIR)/map_example.o \
+    $(OBJDIR)/set_example.o \
+    $(OBJDIR)/multiset_example.o \
+    $(OBJDIR)/unordered_map_example.o \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
-    $(OBJDIR)/custom_class_example.o 		      \
-    $(OBJDIR)/template_class_example.o 		      \
-    $(OBJDIR)/bitfields_in_class_example.o            \
-    $(OBJDIR)/map_custom_class_example.o 	      \
-    $(OBJDIR)/zipped_container_example.o 	      \
-    $(OBJDIR)/quicklz.o 	                      \
+    $(OBJDIR)/custom_class_example.o \
+    $(OBJDIR)/template_class_example.o \
+    $(OBJDIR)/bitfields_in_class_example.o \
+    $(OBJDIR)/map_custom_class_example.o \
+    $(OBJDIR)/zipped_container_example.o \
+    $(OBJDIR)/quicklz.o \
 
 EXTRA_CFLAGS=-std=c++11
 #EXTRA_CFLAGS+=-DDEBUG_C_PLUS_PLUS_SERIALIZER

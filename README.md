@@ -26,16 +26,17 @@ Tested types
 ============
 
 - POD types (char, wchar_t, int, float, double etc...)
-- std::string, std::wstring
-- std::vector
-- std::list
 - std::array (multidimensional works too)
+- std::list
 - std::map
-- std::unordered_map
+- std::multiset
+- std::pair
 - std::set
+- std::string, std::wstring
+- std::unordered_map
+- std::vector
 - custom class
 - nested types e.g. std::map< std::string, std::list>
-- std::pair
 
 POD serialization
 =================
@@ -217,6 +218,30 @@ Set serialization
     static void deserialize (std::ifstream in)
     {
         std::set< std::string > m;
+        in >> bits(m);
+    }
+```
+
+Multiset serialization
+======================
+
+```C++
+    static void serialize (std::ofstream out)
+    {
+        std::multiset< std::string > m;
+        m.insert(std::string("key1"));
+        m.insert(std::string("key1"));
+        m.insert(std::string("key1"));
+        m.insert(std::string("key1"));
+        m.insert(std::string("key2"));
+        m.insert(std::string("key3"));
+        m.insert(std::string("key4"));
+        out << bits(m);
+    }
+
+    static void deserialize (std::ifstream in)
+    {
+        std::multiset< std::string > m;
         in >> bits(m);
     }
 ```
