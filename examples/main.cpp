@@ -34,6 +34,9 @@ int main(int argc, char *argv[])
   extern void multiset_example(void);
   multiset_example();
 
+  extern void deque_example(void);
+  deque_example();
+
   extern void custom_bitset_class_example();
   custom_bitset_class_example();
 

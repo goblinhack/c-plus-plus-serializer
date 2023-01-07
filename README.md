@@ -29,6 +29,7 @@ Tested types
 - std::array (multidimensional works too)
 - std::list
 - std::map
+- std::deque
 - std::multiset
 - std::pair
 - std::set
@@ -242,6 +243,27 @@ Multiset serialization
     static void deserialize (std::ifstream in)
     {
         std::multiset< std::string > m;
+        in >> bits(m);
+    }
+```
+
+Deque serialization
+===================
+
+```C++
+    static void serialize (std::ofstream out)
+    {
+        std::deque< std::string > m;
+        m.push_front(std::string("key1"));
+        m.push_front(std::string("key2"));
+        m.push_back(std::string("key3"));
+        m.push_back(std::string("key4"));
+        out << bits(m);
+    }
+
+    static void deserialize (std::ifstream in)
+    {
+        std::deque< std::string > m;
         in >> bits(m);
     }
 ```
