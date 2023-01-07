@@ -21,6 +21,7 @@ TARGET_OBJECTS=					      \
     $(OBJDIR)/raw_memory.o 			      \
     $(OBJDIR)/container_example.o 		      \
     $(OBJDIR)/map_example.o 			      \
+    $(OBJDIR)/set_example.o 			      \
     $(OBJDIR)/unordered_map_example.o 		      \
     $(OBJDIR)/map_string_to_list_of_strings_example.o \
     $(OBJDIR)/custom_class_example.o 		      \
@@ -58,7 +59,7 @@ clean:
 clobber: clean
 	mkdir -p $(OBJDIR)
 
-all: $(TARGET) 
+all: $(TARGET)
 
 format:
 	git diff -U0 HEAD^ | clang-format-diff -i -p1

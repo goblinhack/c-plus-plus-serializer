@@ -5,6 +5,8 @@
 #include <sstream>
 #include <vector>
 
+#undef DEBUG_C_PLUS_PLUS_SERIALIZER
+
 //
 // 64 bits for serializing is a bit overkill for serializing, so use int
 //
@@ -464,6 +466,75 @@ static inline std::istream &operator>>(std::istream &in, Bits< M< K, V > & > m)
 }
 
 ////////////////////////////////////////////////////////////////////////////
+// Read/write set
+////////////////////////////////////////////////////////////////////////////
+
+template <
+  template<
+      class K,
+      class Compare = std::less<K>,
+      class Allocator = std::allocator<K>
+  > class M, class K >
+
+static inline std::ostream &operator<<(std::ostream &out, Bits< M< K > & > const m)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+  std::cout << "write set<K> " << m.t.size() << " elems" << std::endl;
+#endif
+  my_size_t sz = m.t.size();
+  out << bits(sz);
+  for (auto i : m.t) {
+    out << bits(i);
+  }
+  return (out);
+}
+
+template <
+  template<
+      class K,
+      class Compare = std::less<const K>,
+      class Allocator = std::allocator<const K>
+  > class M, class K >
+
+static inline std::ostream &operator<<(std::ostream &out, Bits< M< K > & > const m)
+{
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+  std::cout << "write set<K> " << m.t.size() << " elems" << std::endl;
+#endif
+  my_size_t sz = m.t.size();
+  out << bits(sz);
+  for (auto i : m.t) {
+    out << bits(i);
+  }
+  return (out);
+}
+
+template <
+  template<
+      class K,
+      class Compare = std::less<K>,
+      class Allocator = std::allocator<K>
+  > class M, class K >
+
+static inline std::istream &operator>>(std::istream &in, Bits< M< K > & > m)
+{
+  my_size_t sz = 0;
+  in >> bits(sz);
+#ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
+  std::cout << "read set<K> " << sz << " elems" << std::endl;
+#endif
+  if (in && sz) {
+    while (sz--) {
+      K k;
+      in >> bits(k);
+      m.t.insert(k);
+    }
+  }
+
+  return in;
+}
+
+////////////////////////////////////////////////////////////////////////////
 // Read/write pair
 ////////////////////////////////////////////////////////////////////////////
 
@@ -471,7 +542,7 @@ template < typename K, typename V >
 static inline std::ostream &operator<<(std::ostream &out, Bits< std::pair< K, V > & > const wrapped)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-  std::cout << "read pair<K,V>" std::endl;
+  std::cout << "read pair<K,V>" << std::endl;
 #endif
   out << bits(wrapped.t.first);
   out << bits(wrapped.t.second);
@@ -482,7 +553,7 @@ template < typename K, typename V >
 static inline std::istream &operator>>(std::istream &in, Bits< std::pair< K, V > & > wrapped)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-  std::cout << "write pair<K,V>" std::endl;
+  std::cout << "write pair<K,V>" << std::endl;
 #endif
   in >> bits(wrapped.t.first);
   in >> bits(wrapped.t.second);
@@ -493,7 +564,7 @@ template < typename K, typename V >
 static inline std::istream &operator>>(std::istream &in, Bits< const std::pair< K, V > & > wrapped)
 {
 #ifdef DEBUG_C_PLUS_PLUS_SERIALIZER
-  std::cout << "const write pair<K,V>" std::endl;
+  std::cout << "const write pair<K,V>" << std::endl;
 #endif
   in >> bits(wrapped.t.first);
   in >> bits(wrapped.t.second);

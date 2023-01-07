@@ -32,6 +32,7 @@ Tested types
 - std::array (multidimensional works too)
 - std::map
 - std::unordered_map
+- std::set
 - custom class
 - nested types e.g. std::map< std::string, std::list>
 - std::pair
@@ -195,6 +196,27 @@ std::map< std::string, std::list > example
     {
         std::map< std::string, std::list< std::string > > m;
 
+        in >> bits(m);
+    }
+```
+
+Set serialization
+=================
+
+```C++
+    static void serialize (std::ofstream out)
+    {
+        std::set< std::string > m;
+        m.insert(std::string("key1"));
+        m.insert(std::string("key2"));
+        m.insert(std::string("key3"));
+        m.insert(std::string("key4"));
+        out << bits(m);
+    }
+
+    static void deserialize (std::ifstream in)
+    {
+        std::set< std::string > m;
         in >> bits(m);
     }
 ```
