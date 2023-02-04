@@ -66,8 +66,7 @@ cat Makefile.base | sed '/DO NOT DELETE/,$d' > Makefile.tmp
 mv Makefile.tmp Makefile
 makedepend *.cpp -p .o/ 2>/dev/null
 
-echo "COMPILER_FLAGS=-Werror -g -ggdb3 -O0 -I . -I examples # AUTOGEN" >> .Makefile
-echo "COMPILER_FLAGS=-Werror -g -ggdb3 -O2 -I . -I examples # AUTOGEN" > .Makefile
+echo "COMPILER_FLAGS=-Werror -g -ggdb3 -O3 -fstack-protector-all -I . -I examples # AUTOGEN" > .Makefile
 echo "    " >> .Makefile
 echo "CLANG_COMPILER_WARNINGS=-Wall # AUTOGEN" >> .Makefile
 echo "GCC_COMPILER_WARNINGS=-Wall # AUTOGEN" >> .Makefile
