@@ -331,15 +331,15 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
 #elif QLZ_COMPRESSION_LEVEL >= 2
     {
       const unsigned char *o, *offset2;
-      ui32 hash, matchlen, k, m, best_k = 0;
-      unsigned char c;
-      size_t remaining =
+      ui32                 hash, matchlen, k, m, best_k = 0;
+      unsigned char        c;
+      size_t               remaining =
           (last_byte - UNCOMPRESSED_END - src + 1) > 255 ? 255 : (last_byte - UNCOMPRESSED_END - src + 1);
       (void) best_k;
 
       // hash = hashat(src);
       fetch = fast_read(src, 3);
-      hash = hash_func(fetch);
+      hash  = hash_func(fetch);
 
       c = state->hash_counter[ hash ];
 
@@ -371,25 +371,25 @@ static size_t qlz_compress_core(const unsigned char *source, unsigned char *dest
           if (m > matchlen)
 #endif
           {
-            offset2 = o;
+            offset2  = o;
             matchlen = m;
-            best_k = k;
+            best_k   = k;
           }
         }
       }
-      o = offset2;
+      o                                                    = offset2;
       state->hash[ hash ].offset[ c & (QLZ_POINTERS - 1) ] = src;
       c++;
       state->hash_counter[ hash ] = c;
 
 #if QLZ_COMPRESSION_LEVEL == 3
       if (matchlen > 2 && src - o < 131071) {
-        ui32 u;
+        ui32   u;
         size_t offset = src - o;
 
         for (u = 1; u < matchlen; u++) {
-          hash = hashat(src + u);
-          c = state->hash_counter[ hash ]++;
+          hash                                                 = hashat(src + u);
+          c                                                    = state->hash_counter[ hash ]++;
           state->hash[ hash ].offset[ c & (QLZ_POINTERS - 1) ] = src + u;
         }
 
@@ -545,12 +545,12 @@ static size_t qlz_decompress_core(const unsigned char *source, unsigned char *de
       }
 
 #elif QLZ_COMPRESSION_LEVEL == 2
-      ui32 hash;
+      ui32          hash;
       unsigned char c;
       cword_val = cword_val >> 1;
-      hash = (fetch >> 5) & 0x7ff;
-      c = (unsigned char) (fetch & 0x3);
-      offset2 = state->hash[ hash ].offset[ c ];
+      hash      = (fetch >> 5) & 0x7ff;
+      c         = (unsigned char) (fetch & 0x3);
+      offset2   = state->hash[ hash ].offset[ c ];
 
       if ((fetch & (28)) != 0) {
         matchlen = ((fetch >> 2) & 0x7) + 2;

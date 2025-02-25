@@ -148,24 +148,33 @@ fi
 log_info "Cleaning"
 make clobber | sed 's/^/  /g'
 
+#
+# How many cores?
+#
 CORES=""
 
-case `uname` in
+MY_OS_NAME=$(uname)
+case "$MY_OS_NAME" in
     *Darwin*)
-    CORES=`/usr/sbin/system_profiler -detailLevel full SPHardwareDataType  | grep Cores | sed 's/.*: //g'`
+      CORES=$(/usr/sbin/system_profiler -detailLevel full SPHardwareDataType  | grep Cores | sed 's/.*: //g' | awk '{print $1}')
     ;;
-
     *inux*)
-    CORES=`cat /proc/cpuinfo | grep "cpu cores" | head -1 | awk '{print $4}'`
+      CORES=$(grep -E -c "cpu cores|processor" /proc/cpuinfo)
+    ;;
+    *MING*|*MSYS*)
+      CORES=$(grep -E -c "cpu cores|processor" /proc/cpuinfo)
     ;;
 esac
 
 if [ "$CORES" != "" ]
 then
+    log_info "Compiling ($CORES cpus)"
+
     CORES="-j $CORES"
+else
+    log_info "Compiling"
 fi
 
-log_info "Compiling"
 make $CORES all
 
 if [ $? -eq 0 ]
